@@ -1,0 +1,93 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Project Plan – Agent Mode Plugin (Property Sharing, No Branding)
+globs: 
+alwaysApply: true
+---
+
+# Project Plan – Agent Mode Plugin (Property Sharing, No Branding)
+
+## Overview
+
+This project requires the development of a custom WordPress plugin that enables a "Broker Mode" or "Agent Mode" feature. It will allow agents to share individual property listings via a unique URL, which renders a minimal, unbranded view of the property. The implementation must be fully compatible with the **RealHomes Theme (Version 4.4.1)** but operate entirely independently from the theme’s templates, styles, and assets.
+
+---
+
+## Purpose
+
+Enable agents to share specific properties without exposing the company’s brand, layout, or global elements. The link must load only the property information in a neutral, minimal layout optimized for mobile and direct client interaction.
+
+---
+
+## Requirements
+
+### Functional
+
+- Each property must be accessible via a unique, shareable URL.
+- The shared view must exclude all theme branding:
+  - No logo
+  - No navigation/menu
+  - No header/footer
+  - No theme styles or scripts
+- The shared page must include:
+  - Property title
+  - Featured image or gallery
+  - Price
+  - Location
+  - Description
+  - Contact button (e.g., WhatsApp link or mailto link)
+- The layout must be fully responsive and load quickly on mobile devices.
+
+### Technical
+
+- The plugin must be structured as a **standalone WordPress plugin**, not a theme child or extension.
+- Must register a custom rewrite endpoint or use a query string such as `?agent_view=1`.
+- Must hook into `template_include` to load a custom PHP template for the agent view.
+- Must retrieve property data using `WP_Query`, not rely on RealHomes theme functions.
+- All plugin styles must be scoped, minimal, and enqueued separately (`wp_enqueue_style`).
+- Must verify that the property exists and is published.
+- The page must return a `404` if the property does not exist or is unpublished.
+- Must not expose private metadata or fields not intended for frontend viewing.
+- Must not require login or authentication to access the agent view.
+- Must not use JavaScript frameworks. Use plain PHP and minimal JavaScript only where necessary.
+- Must not depend on external libraries or CDNs.
+
+---
+
+## Deliverables
+
+- WordPress plugin directory: `agent-mode`
+- Plugin files:
+  - `agent-mode.php` (main bootstrap file)
+  - `includes/template-agent-mode.php` (template override)
+  - `css/agent-style.css` (scoped layout styles)
+- Rewrite or query handler
+- Template rendering logic using native WordPress functions
+- Sanitization and escaping for all dynamic output
+- Final `README.md` with usage instructions
+
+---
+
+## Editor Integration – Shortcode for Agent View Link
+
+The plugin must include a shortcode `[agent_view_link]` that outputs a fully qualified URL to the current property’s Agent Mode view.
+
+### Requirements
+
+- The shortcode must be available for use **within the property editor** (classic editor or block editor).
+- The output must be a **full URL**, including site domain and property identifier.
+- The shortcode must only work when used within a single property context (`post_type = property`).
+- The plugin must register the shortcode via `add_shortcode`.
+- If the shortcode is used outside a property context, it must return nothing.
+
+### Output Example
+
+When used inside a property with ID `12345`:
+
+## Final Notes
+
+This plugin is purpose-built for the Agent Mode functionality and will not interfere with existing RealHomes theme features. It provides a neutral and controlled environment for property sharing by third-party agents or brokers without brand exposure.

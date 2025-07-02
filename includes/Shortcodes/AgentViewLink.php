@@ -1,0 +1,65 @@
+<?php
+
+namespace PBCRAgentMode\Shortcodes;
+
+// If this file is called directly, abort.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+/**
+ * Agent View Link Shortcode Class
+ * 
+ * Handles the [agent_view_link] shortcode that outputs a URL to the property's Agent Mode view.
+ */
+class AgentViewLink {
+
+    /**
+     * Shortcode tag
+     */
+    const SHORTCODE_TAG = 'agent_view_link';
+
+    /**
+     * Register the shortcode
+     */
+    public function register() {
+        add_shortcode( self::SHORTCODE_TAG, [ $this, 'render' ] );
+    }
+
+    /**
+     * Render the shortcode
+     * 
+     * @param array $atts Shortcode attributes
+     * @param string $content Shortcode content
+     * @return string The rendered shortcode output
+     */
+    public function render( $atts = [], $content = null ) {
+        // Get the current post
+        global $post;
+        
+        // Check if we're in a property context
+        if ( ! $post || get_post_type( $post ) !== 'property' ) {
+            return '';
+        }
+
+        // Generate the agent view URL
+        $agent_url = $this->get_agent_view_url( $post->ID );
+        
+        // Return the full URL
+        return esc_url( $agent_url );
+    }
+
+    /**
+     * Generate the agent view URL for a property
+     * 
+     * @param int $property_id The property post ID
+     * @return string The agent view URL
+     */
+    private function get_agent_view_url( $property_id ) {
+        // Build the URL with agent_view query parameter
+        $property_url = get_permalink( $property_id );
+        $agent_url = add_query_arg( 'agent_view', '1', $property_url );
+        
+        return $agent_url;
+    }
+} 

@@ -1,0 +1,237 @@
+# PBCR Agent Mode Plugin - Git Ignore Rules
+
+# ===========================================
+# WordPress Core & Plugin Specific
+# ===========================================
+
+# WordPress debug logs
+debug.log
+wp-content/debug.log
+
+# WordPress cache files
+wp-content/cache/
+wp-content/uploads/
+wp-content/upgrade/
+
+# Plugin update files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# ===========================================
+# Development & Build Tools
+# ===========================================
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Build directories
+dist/
+build/
+.webpack/
+
+# Package managers
+package-lock.json
+yarn.lock
+composer.lock
+
+# Build artifacts
+*.min.css
+*.min.js
+*.map
+
+# ===========================================
+# Development Environment
+# ===========================================
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Local development
+.local/
+.vscode/settings.json
+.vscode/launch.json
+
+# ===========================================
+# Operating System Files
+# ===========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===========================================
+# IDE & Editor Files
+# ===========================================
+
+# Visual Studio Code
+.vscode/
+!.vscode/extensions.json
+*.code-workspace
+
+# PhpStorm / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ===========================================
+# Development Logs & Temporary Files
+# ===========================================
+
+# PHP logs
+php_errors.log
+error_log
+
+# Temporary development files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Test files
+tests/temp/
+tests/tmp/
+
+# Coverage reports
+coverage/
+.nyc_output/
+*.lcov
+
+# ===========================================
+# Security & Sensitive Files
+# ===========================================
+
+# API keys and secrets
+secrets.php
+config-local.php
+.secrets/
+
+# Database dumps
+*.sql
+*.sqlite
+*.db
+
+# Backup files
+backup/
+backups/
+*.backup
+
+# ===========================================
+# Plugin Development Specific
+# ===========================================
+
+# Plugin zip files for distribution
+*.zip
+pbcr-agent-mode.zip
+
+# Development assets
+assets/src/
+assets/dev/
+
+# Translation files (temporary)
+*.pot~
+*.po~
+*.mo~
+
+# CSS/JS source maps (if not needed in repo)
+# *.map
+
+# ===========================================
+# Documentation & Generated Files
+# ===========================================
+
+# Auto-generated documentation
+docs/api/
+docs/generated/
+
+# PHPDoc generated files
+phpdoc/
+
+# ===========================================
+# Special Considerations
+# ===========================================
+
+# Keep development logs (as per project requirements)
+# Uncomment the line below if you want to ignore all logs
+# logs/
+
+# Keep important config files
+!.gitkeep
+!.htaccess.example
+
+# Keep essential development files
+!webpack.config.js
+!gulpfile.js
+!package.json.example
+
+# ===========================================
+# Custom Additions
+# ===========================================
+
+# Add any project-specific ignores below this line 

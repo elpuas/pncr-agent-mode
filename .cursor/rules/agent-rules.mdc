@@ -1,0 +1,143 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Agent Development Guidelines – Agent Mode Plugin
+globs: 
+alwaysApply: true
+---
+
+## Purpose
+
+This document defines the technical rules and development standards for building and maintaining the `Agent Mode` plugin. All contributors must adhere strictly to these rules to ensure clean architecture, maintainability, performance, and security.
+
+---
+
+## Plugin Architecture
+
+### General Principles
+
+- Use an **OOP (Object-Oriented Programming)** structure.
+- All classes must follow WordPress naming conventions and be namespaced to avoid conflicts.
+- No procedural code outside of the plugin bootstrap file (`agent-mode.php`).
+- Prefer dependency injection over global state.
+- Use autoloading where appropriate (PSR-4 if needed).
+
+### Directory Structure
+
+agent-mode/
+├── agent-mode.php
+├── includes/
+│   ├── Plugin.php
+│   ├── Loader.php
+│   ├── Shortcodes/
+│   │   └── AgentViewLink.php
+│   ├── Views/
+│   │   └── agent-template.php
+│   ├── Css/
+│   │   └── agent-style.css
+├── context/
+│   └── YYYY-MM-DD_task-title.md
+├── README.md
+
+---
+
+## CSS Guidelines (Modern Vanilla CSS)
+
+- All CSS must be **scoped** to the `.agent-mode` namespace.
+- Use **container queries** for responsive layout adjustments.
+- Use modern selectors: `:has()`, `:is()`, `:not()` as needed for minimal JS logic.
+- Use **CSS nesting** if supported by the toolchain.
+- Avoid Tailwind or Bootstrap.
+- Use semantic class naming (`.property-title`, `.agent-price`, etc.).
+- Define all layout using **CSS Grid** or **Flexbox**, no floats.
+- Avoid inline styles unless dynamically injected.
+
+---
+
+## JavaScript Guidelines
+
+- Use **vanilla JS (ES6+)** unless React is strictly required.
+- All scripts must be modular, scoped, and loaded only on the Agent Mode view.
+- Use `defer` attribute for script loading.
+- Avoid jQuery.
+- Use modern APIs (`fetch`, `class`, `const`, `let`, arrow functions, etc.).
+- Avoid libraries unless explicitly approved.
+
+### React Usage (if required)
+
+If a component (e.g., a gallery or contact form) requires advanced interactivity:
+
+- Use **functional React components with hooks**.
+- Must be isolated in a subfolder `/js/components/`.
+- Use WP Scripts build system (`@wordpress/scripts`) or Vite only if preapproved.
+- Must load conditionally only on Agent Mode views.
+
+---
+
+## PHP Guidelines
+
+- PHP 8+ syntax.
+- Follow [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/).
+- Use `[]` for arrays.
+- Use strict comparisons (`===`).
+- Sanitize and escape all dynamic output:
+  - `esc_html()`, `esc_url()`, `wp_kses_post()`, etc.
+- Use `WP_Query` for fetching properties.
+- Do **not** rely on theme functions from RealHomes.
+
+---
+
+## Shortcode Rules
+
+- Shortcodes must be registered via their own classes (`Shortcodes\*`).
+- Must return full HTML string.
+- Output must be escaped and minimal.
+- Only active in `property` post type context.
+
+---
+
+## Logging Rules
+
+At the end of **each task or significant commit**, the agent must create a log file:
+
+### Log File Format
+
+- Location: `/agent-mode/logs/YYYY-MM-DD_task-name.md`
+- Filename must include date and task description
+- Content format:
+
+```md
+# YYYY-MM-DD – Task: [Short Description]
+
+## Summary
+
+- Description of what was implemented.
+- Files created or modified.
+- Known issues or follow-ups required.
+- Time spent (approximate).
+
+## Example
+
+Task: Created Agent View Template  
+Files:  
+- includes/Views/agent-template.php  
+- css/agent-style.css  
+Notes:  
+- Template renders title, image, price, and location  
+- No branding elements included  
+- Tested on mobile  
+Time: ~3 hours
+
+This log is mandatory and must be committed with every milestone.
+
+⸻
+
+Final Notes
+	•	Any deviation from these standards must be pre-approved and documented.
+	•	All code must be ready for code review at any time.
+	•	Plugin must work independently of any theme or builder.
+
+¿Querés que prepare un `plugin-skeleton.zip` inicial con esta estructura lista para que tu agente empiece? Puedo dejar `agent-mode.php` con el loader ya configurado.
