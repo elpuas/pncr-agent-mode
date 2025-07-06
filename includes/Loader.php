@@ -37,8 +37,8 @@ class Loader {
      * Enqueue plugin assets
      */
     public function enqueue_assets() {
-        // Only enqueue on agent mode views
-        if ( get_query_var( 'agent_view' ) ) {
+        // Only enqueue on agent mode views for property posts
+        if ( \is_singular( 'property' ) && $this->is_agent_view() ) {
             wp_enqueue_style(
                 'pbcr-agent-mode-style',
                 PBCR_AGENT_MODE_PLUGIN_URL . 'includes/css/agent-style.css',
@@ -46,5 +46,13 @@ class Loader {
                 PBCR_AGENT_MODE_VERSION
             );
         }
+    }
+
+    /**
+     * Check if current request is for agent view
+     */
+    private function is_agent_view() {
+        // Check both query var and GET parameter for compatibility
+        return ( \get_query_var( 'agent_view' ) === '1' ) || ( isset( $_GET['agent_view'] ) && $_GET['agent_view'] === '1' );
     }
 } 

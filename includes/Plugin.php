@@ -63,8 +63,8 @@ class Plugin {
      * Include custom template for agent mode
      */
     public function template_include( $template ) {
-        // Check if we're in agent mode
-        if ( get_query_var( 'agent_view' ) ) {
+        // Check if we're viewing a single property with agent_view parameter
+        if ( \is_singular( 'property' ) && $this->is_agent_view() ) {
             $agent_template = PBCR_AGENT_MODE_PLUGIN_PATH . 'includes/Views/agent-template.php';
             if ( file_exists( $agent_template ) ) {
                 return $agent_template;
@@ -72,5 +72,13 @@ class Plugin {
         }
         
         return $template;
+    }
+
+    /**
+     * Check if current request is for agent view
+     */
+    private function is_agent_view() {
+        // Check both query var and GET parameter for compatibility
+        return ( \get_query_var( 'agent_view' ) === '1' ) || ( isset( $_GET['agent_view'] ) && $_GET['agent_view'] === '1' );
     }
 } 

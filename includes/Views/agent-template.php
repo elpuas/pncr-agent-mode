@@ -58,13 +58,36 @@ if ( get_post_status( $post ) !== 'publish' ) {
 
             <div class="property-details">
                 <div class="property-price">
-                    <!-- Price will be implemented when property data structure is known -->
-                    <span class="price-placeholder">Price: To be implemented</span>
+                    <?php 
+                    // Try common RealHomes price meta fields
+                    $price = get_post_meta( get_the_ID(), 'REAL_HOMES_property_price', true );
+                    if ( empty( $price ) ) {
+                        $price = get_post_meta( get_the_ID(), 'property_price', true );
+                    }
+                    if ( ! empty( $price ) ) : ?>
+                        <span class="price-value"><?php echo esc_html( $price ); ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <div class="property-location">
-                    <!-- Location will be implemented when property data structure is known -->
-                    <span class="location-placeholder">Location: To be implemented</span>
+                    <?php 
+                    // Try common location meta fields
+                    $address = get_post_meta( get_the_ID(), 'REAL_HOMES_property_address', true );
+                    if ( empty( $address ) ) {
+                        $address = get_post_meta( get_the_ID(), 'property_address', true );
+                    }
+                    if ( ! empty( $address ) ) : ?>
+                        <span class="location-value"><?php echo esc_html( $address ); ?></span>
+                    <?php else : ?>
+                        <?php 
+                        // Try to get location from property location taxonomy
+                        $locations = get_the_terms( get_the_ID(), 'property-city' );
+                        if ( ! empty( $locations ) && ! is_wp_error( $locations ) ) :
+                            $location_names = wp_list_pluck( $locations, 'name' );
+                            ?>
+                            <span class="location-value"><?php echo esc_html( implode( ', ', $location_names ) ); ?></span>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </div>
 
                 <div class="property-description">
