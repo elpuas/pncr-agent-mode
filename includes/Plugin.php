@@ -55,9 +55,15 @@ class Plugin {
 
 	/**
 	 * Initialize rewrite rules for agent mode.
+	 *
+	 * Note: For immediate functionality, the plugin uses query parameters (?agent_view=1).
+	 * Custom rewrite rules can be added later if cleaner URLs are needed.
+	 * To enable, uncomment the add_rewrite_endpoint line and flush permalinks.
 	 */
 	public function init_rewrite_rules() {
-		// This will be implemented to handle agent mode URLs.
+		// Uncomment the following line to enable clean URLs like /property/sample-property/agent-view/
+		// Then go to Settings > Permalinks and click "Save Changes" to flush rewrite rules.
+		// add_rewrite_endpoint( 'agent-view', EP_PERMALINK );
 	}
 
 	/**
