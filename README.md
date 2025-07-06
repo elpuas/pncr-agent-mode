@@ -69,13 +69,81 @@ pbcr-agent-mode/
 
 ## Development
 
-This plugin follows WordPress coding standards and uses:
+This plugin follows WordPress coding standards and uses modern development practices.
 
-- Object-oriented PHP structure with namespacing
-- Modern vanilla CSS with container queries
-- Scoped CSS classes (`.agent-mode` namespace)
-- Proper sanitization and escaping
-- Security best practices
+### Prerequisites
+
+- PHP 8.2 or higher
+- Composer
+- WordPress 6.4 or higher
+
+### Setup
+
+Install development dependencies:
+
+```bash
+composer install
+```
+
+Or using the provided Makefile:
+
+```bash
+make install
+```
+
+### Code Quality
+
+Run PHP CodeSniffer to check coding standards:
+
+```bash
+composer run lint
+```
+
+Automatically fix coding standards issues:
+
+```bash
+composer run lint-fix
+```
+
+### Testing
+
+Run the test suite:
+
+```bash
+composer run test
+```
+
+Run tests with coverage report:
+
+```bash
+composer run test-coverage
+```
+
+### Development Workflow
+
+1. **Code Standards**: All code must follow WordPress Coding Standards
+2. **Testing**: Write tests for new functionality
+3. **Documentation**: Update relevant documentation
+4. **Logging**: Create log entries for significant changes in `/logs/`
+
+### Available Make Commands
+
+- `make install` - Install development dependencies
+- `make lint` - Run PHP CodeSniffer
+- `make lint-fix` - Fix coding standards automatically
+- `make test` - Run PHPUnit tests
+- `make test-coverage` - Run tests with coverage
+- `make clean` - Clean generated files
+- `make check` - Run all quality checks
+- `make help` - Show all available commands
+
+### Architecture
+
+- **Object-oriented PHP structure** with PSR-4 namespacing
+- **Modern vanilla CSS** with container queries
+- **Scoped CSS classes** (`.agent-mode` namespace)
+- **Proper sanitization and escaping**
+- **Security best practices**
 
 ## License
 
