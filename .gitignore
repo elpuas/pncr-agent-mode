@@ -234,4 +234,22 @@ phpdoc/
 # Custom Additions
 # ===========================================
 
-# Add any project-specific ignores below this line 
+# Development Dependencies
+/vendor/
+/node_modules/
+
+# Development logs
+/logs/
+
+# Test output
+/tests/output/
+/tests/coverage/
+/tests/results.xml
+/tests/clover.xml
+/tests/coverage.txt
+/phpunit.xml
+
+# Composer lock file for plugin development
+composer.lock
+
+# Add any project-specific ignores below this line
