@@ -1,6 +1,6 @@
 /**
  * Agent Mode Plugin Styles
- * 
+ *
  * Modern vanilla CSS implementation with:
  * - Container Queries for responsive layout
  * - CSS Nesting for maintainable code
@@ -9,7 +9,7 @@
  * - Scoped under .agent-mode namespace
  */
 
-/* 
+/*
  * CONTAINER SETUP
  * Define the main container with container query context
  */
@@ -21,7 +21,7 @@
     line-height: 1.6;
     color: #333;
     background-color: #fff;
-    
+
     /* Enable container queries on the body element */
     container-type: inline-size;
     container-name: agent-layout;
@@ -31,7 +31,7 @@
         box-sizing: border-box;
     }
 
-    /* 
+    /*
      * MAIN CONTAINER
      * Responsive container with modern CSS Grid layout
      */
@@ -39,19 +39,19 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 1rem;
-        
+
         /* Container query context for nested components */
         container-type: inline-size;
         container-name: main-content;
     }
 
-    /* 
+    /*
      * HEADER SECTION
      * Typography and spacing using modern selectors
      */
     & .agent-mode-header {
         margin-bottom: 2rem;
-        
+
         /* Property title with responsive typography */
         & .property-title {
             font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -62,7 +62,7 @@
         }
     }
 
-    /* 
+    /*
      * MAIN CONTENT LAYOUT
      * CSS Grid with modern responsive design
      */
@@ -70,14 +70,14 @@
         display: grid;
         gap: 2rem;
         grid-template-columns: 1fr;
-        grid-template-areas: 
+        grid-template-areas:
             "image"
             "details";
-        
+
         /* Property image section */
         & .property-image {
             grid-area: image;
-            
+
             & .featured-image {
                 width: 100%;
                 height: auto;
@@ -88,7 +88,7 @@
             }
         }
 
-        /* 
+        /*
          * PROPERTY DETAILS
          * Flexbox layout with modern selector usage
          */
@@ -103,11 +103,125 @@
                 font-size: 1.5rem;
                 font-weight: 600;
                 color: #2563eb;
-                
+                display: flex;
+                align-items: baseline;
+                gap: 0.5rem;
+
                 /* Enhanced styling when price is actually present */
                 &:not(:empty) {
                     padding: 0.5rem 0;
                     border-bottom: 2px solid #e5e7eb;
+                }
+
+                & .price-label {
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: #6b7280;
+                }
+
+                & .price-value {
+                    font-size: 1.75rem;
+                    font-weight: 700;
+                }
+            }
+
+            /* Property Reference ID */
+            & .property-ref {
+                font-size: 0.9rem;
+                color: #6b7280;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                & .ref-label {
+                    font-weight: 500;
+                }
+
+                & .ref-value {
+                    font-family: monospace;
+                    background: #f3f4f6;
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 4px;
+                }
+            }
+
+            /* Property Features Grid */
+            & .property-features {
+                & .features-title {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    margin: 0 0 1rem 0;
+                    color: #1f2937;
+                }
+
+                & .features-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                    gap: 1rem;
+                }
+
+                & .feature-item {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                    padding: 1rem;
+                    background: #f9fafb;
+                    border-radius: 8px;
+                    border: 1px solid #e5e7eb;
+
+                    & .feature-icon {
+                        width: 24px;
+                        height: 24px;
+                        margin-bottom: 0.5rem;
+                        display: block;
+
+                        &.feature-icon-bed::before {
+                            content: '🛏️';
+                            font-size: 20px;
+                        }
+
+                        &.feature-icon-bath::before {
+                            content: '🛁';
+                            font-size: 20px;
+                        }
+
+                        &.feature-icon-garage::before {
+                            content: '🚗';
+                            font-size: 20px;
+                        }
+                    }
+
+                    & .feature-value {
+                        font-size: 1.25rem;
+                        font-weight: 700;
+                        color: #2563eb;
+                        margin-bottom: 0.25rem;
+                    }
+
+                    & .feature-label {
+                        font-size: 0.875rem;
+                        color: #6b7280;
+                        font-weight: 500;
+                    }
+                }
+            }
+
+            /* Property Size */
+            & .property-size {
+                display: flex;
+                align-items: baseline;
+                gap: 0.5rem;
+                font-size: 1.1rem;
+
+                & .size-label {
+                    font-weight: 500;
+                    color: #6b7280;
+                }
+
+                & .size-value {
+                    font-weight: 600;
+                    color: #1f2937;
                 }
             }
 
@@ -118,24 +232,41 @@
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
-                
+
                 /* Style differently if it has an icon */
                 &:has(.location-icon) {
+                    font-weight: 500;
+                }
+
+                & .location-icon {
+                    font-size: 1.2rem;
+                }
+
+                & .location-value {
+                    color: #1f2937;
                     font-weight: 500;
                 }
             }
 
             /* Description content with improved typography */
             & .property-description {
-                font-size: 1rem;
-                line-height: 1.7;
-                
+                & .description-title {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    margin: 0 0 1rem 0;
+                    color: #1f2937;
+                }
+
                 & .description-content {
+                    font-size: 1rem;
+                    line-height: 1.7;
+                    color: #374151;
+
                     /* Modern selector to handle paragraph spacing */
                     & p:is(:not(:last-child)) {
                         margin-bottom: 1rem;
                     }
-                    
+
                     /* Enhanced styling for lists and other elements */
                     & :is(ul, ol) {
                         padding-left: 1.5rem;
@@ -144,13 +275,95 @@
                 }
             }
 
-            /* 
+            /* Additional Details/Extras */
+            & .property-extras {
+                & .extras-title {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    margin: 0 0 1rem 0;
+                    color: #1f2937;
+                }
+
+                & .extras-list {
+                    display: grid;
+                    gap: 0.75rem;
+                }
+
+                & .extra-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.75rem;
+                    background: #f9fafb;
+                    border-radius: 6px;
+                    border-left: 3px solid #2563eb;
+
+                    & .extra-label {
+                        font-weight: 500;
+                        color: #6b7280;
+                    }
+
+                    & .extra-value {
+                        font-weight: 600;
+                        color: #1f2937;
+                    }
+                }
+            }
+
+            /* Property Gallery */
+            & .property-gallery {
+                & .gallery-title {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    margin: 0 0 1rem 0;
+                    color: #1f2937;
+                }
+
+                & .gallery-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                    gap: 1rem;
+                }
+
+                & .gallery-item {
+                    position: relative;
+                    aspect-ratio: 4 / 3;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    }
+
+                    & a {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    & .gallery-image {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: transform 0.2s ease;
+                    }
+
+                    &:hover .gallery-image {
+                        transform: scale(1.05);
+                    }
+                }
+            }
+
+            /*
              * CONTACT SECTION
              * Modern button design with enhanced interactions
              */
             & .property-contact {
                 margin-top: auto;
-                
+
                 & .contact-button {
                     display: inline-flex;
                     align-items: center;
@@ -164,27 +377,27 @@
                     font-weight: 600;
                     transition: all 0.2s ease;
                     border: 2px solid transparent;
-                    
+
                     &:hover {
                         background-color: #059669;
                         transform: translateY(-1px);
                         box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
                     }
-                    
+
                     &:focus-visible {
                         outline: none;
                         border-color: #10b981;
                         box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
                     }
-                    
+
                     /* Icon support within button */
-                    &:has(.contact-icon) {
-                        padding-left: 1rem;
+                    & .contact-icon {
+                        font-size: 1.1rem;
                     }
                 }
             }
 
-            /* 
+            /*
              * CONDITIONAL STYLING USING :has()
              * Enhanced layouts when certain elements are present
              */
@@ -192,7 +405,7 @@
                 /* Add visual separator when price is present */
                 & .property-price {
                     position: relative;
-                    
+
                     &::after {
                         content: '';
                         position: absolute;
@@ -207,7 +420,7 @@
         }
     }
 
-    /* 
+    /*
      * FOOTER SECTION
      * Minimal footer with modern spacing
      */
@@ -218,7 +431,7 @@
         text-align: center;
         color: #9ca3af;
         font-size: 0.875rem;
-        
+
         /* Responsive footer text */
         & p {
             margin: 0;
@@ -227,7 +440,7 @@
     }
 }
 
-/* 
+/*
  * CONTAINER QUERIES
  * Modern responsive design using container queries
  */
@@ -238,11 +451,11 @@
         align-items: start;
         gap: 3rem;
     }
-    
+
     .agent-mode .property-title {
         font-size: 2.5rem;
     }
-    
+
     .agent-mode .property-details .contact-button {
         align-self: flex-start;
         min-width: 200px;
@@ -253,19 +466,19 @@
     .agent-mode .agent-mode-container {
         padding: 2rem;
     }
-    
+
     .agent-mode .agent-mode-content {
         gap: 4rem;
         max-width: 1000px;
         margin: 0 auto;
     }
-    
+
     .agent-mode .property-details {
         gap: 2rem;
     }
 }
 
-/* 
+/*
  * ENHANCED MOBILE EXPERIENCE
  * Media queries for legacy browser support
  */
@@ -274,23 +487,47 @@
         & .agent-mode-container {
             padding: 0.75rem;
         }
-        
+
         & .property-title {
             font-size: 1.75rem;
         }
-        
+
         & .contact-button {
             width: 100%;
             text-align: center;
         }
-        
+
         & .agent-mode-content {
             gap: 1.5rem;
+        }
+
+        & .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        & .gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        & .property-price {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.25rem;
+
+            & .price-value {
+                font-size: 1.5rem;
+            }
+        }
+
+        & .extra-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
     }
 }
 
-/* 
+/*
  * ACCESSIBILITY ENHANCEMENTS
  * Modern CSS for better accessibility
  */
@@ -306,16 +543,50 @@
 
 @media (prefers-color-scheme: dark) {
     .agent-mode {
-        /* Dark mode support - can be enhanced later */
+        /* Dark mode support - enhanced for all elements */
         color: #e5e7eb;
         background-color: #1f2937;
-        
+
         & .property-title {
             color: #f9fafb;
         }
-        
+
         & .featured-image {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
+
+        & .features-title,
+        & .description-title,
+        & .gallery-title,
+        & .extras-title {
+            color: #f9fafb;
+        }
+
+        & .feature-item {
+            background: #374151;
+            border-color: #4b5563;
+        }
+
+        & .ref-value {
+            background: #374151;
+            color: #e5e7eb;
+        }
+
+        & .extra-item {
+            background: #374151;
+            border-left-color: #60a5fa;
+        }
+
+        & .description-content {
+            color: #d1d5db;
+        }
+
+        & .gallery-item {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+            &:hover {
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            }
+        }
     }
-} 
+}

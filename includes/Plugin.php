@@ -76,7 +76,6 @@ class Plugin {
 		$vars[] = 'agent_view';
 		return $vars;
 	}
-
 	/**
 	 * Include custom template for agent mode.
 	 *

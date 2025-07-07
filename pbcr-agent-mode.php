@@ -89,5 +89,19 @@ function pbcr_agent_mode_init() {
 	}
 }
 
+/**
+ * Global helper function to get property data.
+ * This is defined here to ensure it's always available.
+ *
+ * @param int $property_id The property post ID. If null, uses current post.
+ * @return array Associative array of formatted property data.
+ */
+function pbcr_agent_get_property_data( $property_id = null ) {
+	if ( class_exists( 'PBCRAgentMode\Helpers\PropertyData' ) ) {
+		return \PBCRAgentMode\Helpers\PropertyData::get_property_data( $property_id );
+	}
+	return [];
+}
+
 // Hook into WordPress init.
 add_action( 'plugins_loaded', 'pbcr_agent_mode_init' );
