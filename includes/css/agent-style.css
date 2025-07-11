@@ -67,12 +67,9 @@
      * CSS Grid with modern responsive design
      */
     & .agent-mode-content {
-        display: grid;
+        display: flex;
+		flex-direction: column;
         gap: 2rem;
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "image"
-            "details";
 
         /* Property image section */
         & .property-image {
@@ -527,66 +524,4 @@
     }
 }
 
-/*
- * ACCESSIBILITY ENHANCEMENTS
- * Modern CSS for better accessibility
- */
-@media (prefers-reduced-motion: reduce) {
-    .agent-mode {
-        & * {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-        }
-    }
-}
 
-@media (prefers-color-scheme: dark) {
-    .agent-mode {
-        /* Dark mode support - enhanced for all elements */
-        color: #e5e7eb;
-        background-color: #1f2937;
-
-        & .property-title {
-            color: #f9fafb;
-        }
-
-        & .featured-image {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        & .features-title,
-        & .description-title,
-        & .gallery-title,
-        & .extras-title {
-            color: #f9fafb;
-        }
-
-        & .feature-item {
-            background: #374151;
-            border-color: #4b5563;
-        }
-
-        & .ref-value {
-            background: #374151;
-            color: #e5e7eb;
-        }
-
-        & .extra-item {
-            background: #374151;
-            border-left-color: #60a5fa;
-        }
-
-        & .description-content {
-            color: #d1d5db;
-        }
-
-        & .gallery-item {
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-
-            &:hover {
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            }
-        }
-    }
-}
