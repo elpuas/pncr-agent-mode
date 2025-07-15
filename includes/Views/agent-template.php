@@ -42,7 +42,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="noindex, nofollow">
-	<title><?php echo esc_html( get_the_title() ); ?> - Agent View</title>
+	<title><?php echo esc_html( get_the_title() ); ?> - <?php esc_html_e( 'Agent View', 'pbcr-agent-mode' ); ?></title>
 	<?php wp_head(); ?>
 </head>
 <body class="agent-mode">
@@ -52,36 +52,10 @@ if ( 'publish' !== get_post_status( $post ) ) {
 		</header>
 
 		<main class="agent-mode-content">
-			<?php			// TEMPORARY DEBUG - Remove after testing
-			echo '<div style="background: #f0f0f0; padding: 10px; margin: 10px; border: 1px solid #ccc;">';
-			echo '<h4>DEBUG INFO:</h4>';
-
-			$debug_gallery = get_post_meta( get_the_ID(), 'REAL_HOMES_property_images', true );
-			echo '<p><strong>Gallery IDs (true):</strong> ' . (is_array($debug_gallery) ? implode(', ', $debug_gallery) : 'Not an array: ' . gettype($debug_gallery)) . '</p>';
-
-			$debug_gallery_false = get_post_meta( get_the_ID(), 'REAL_HOMES_property_images', false );
-			echo '<p><strong>Gallery IDs (false):</strong> ' . (is_array($debug_gallery_false) ? 'Array with ' . count($debug_gallery_false) . ' items' : 'Not an array') . '</p>';
-
-			$debug_details = get_post_meta( get_the_ID(), 'REAL_HOMES_additional_details_list', true );
-			$debug_details_unserialized = maybe_unserialize( $debug_details );
-			echo '<p><strong>Additional Details (raw type):</strong> ' . gettype($debug_details) . '</p>';
-			if (is_string($debug_details)) {
-				echo '<p><strong>Additional Details (raw):</strong> ' . substr($debug_details, 0, 100) . '...</p>';
-			} else {
-				echo '<p><strong>Additional Details (raw):</strong> ' . print_r($debug_details, true) . '</p>';
-			}
-			echo '<p><strong>Additional Details (unserialized count):</strong> ' . (is_array($debug_details_unserialized) ? count($debug_details_unserialized) : 'Not an array: ' . gettype($debug_details_unserialized)) . '</p>';
-			echo '</div>';
-			?>
-
 			<?php
 			// Get property data using our helper function.
 			$property_data = pbcr_agent_get_property_data();
 			$features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $property_data );
-
-			// Debug: Let's see what the helper is returning
-			// Uncomment the next line for debugging
-			// echo '<pre>Helper Data: ' . print_r($property_data, true) . '</pre>';
 			?>
 
 			<div class="property-image">
@@ -95,21 +69,21 @@ if ( 'publish' !== get_post_status( $post ) ) {
 			<div class="property-details">
 				<?php if ( ! empty( $property_data['price'] ) ) : ?>
 					<div class="property-price">
-						<span class="price-label">Price:</span>
+						<span class="price-label"><?php esc_html_e( 'Price:', 'pbcr-agent-mode' ); ?></span>
 						<span class="price-value">$<?php echo esc_html( $property_data['price'] ); ?></span>
 					</div>
 				<?php endif; ?>
 
 				<?php if ( ! empty( $property_data['ref_id'] ) ) : ?>
 					<div class="property-ref">
-						<span class="ref-label">Property ID:</span>
+						<span class="ref-label"><?php esc_html_e( 'Property ID:', 'pbcr-agent-mode' ); ?></span>
 						<span class="ref-value"><?php echo esc_html( $property_data['ref_id'] ); ?></span>
 					</div>
 				<?php endif; ?>
 
 				<?php if ( ! empty( $features ) ) : ?>
 					<div class="property-features">
-						<h3 class="features-title">Property Features</h3>
+						<h3 class="features-title"><?php esc_html_e( 'Property Features', 'pbcr-agent-mode' ); ?></h3>
 						<div class="features-grid">
 							<?php foreach ( $features as $feature ) : ?>
 								<div class="feature-item">
@@ -124,7 +98,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 
 				<?php if ( ! empty( $property_data['size'] ) ) : ?>
 					<div class="property-size">
-						<span class="size-label">Size:</span>
+						<span class="size-label"><?php esc_html_e( 'Size:', 'pbcr-agent-mode' ); ?></span>
 						<span class="size-value"><?php echo esc_html( $property_data['size'] ); ?> <?php echo esc_html( $property_data['size_unit'] ); ?></span>
 					</div>
 				<?php endif; ?>
@@ -150,7 +124,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 
 				<?php if ( ! empty( $property_data['location'] ) ) : ?>
 					<div class="property-location-meta">
-						<span class="location-meta-label">Location:</span>
+						<span class="location-meta-label"><?php esc_html_e( 'Location:', 'pbcr-agent-mode' ); ?></span>
 						<span class="location-meta-value"><?php echo esc_html( $property_data['location'] ); ?></span>
 					</div>
 				<?php endif; ?>
@@ -158,20 +132,20 @@ if ( 'publish' !== get_post_status( $post ) ) {
 				<?php if ( ! empty( $property_data['is_featured'] ) && '1' === $property_data['is_featured'] ) : ?>
 					<div class="property-featured-badge">
 						<span class="featured-icon">⭐</span>
-						<span class="featured-text">Featured Property</span>
+						<span class="featured-text"><?php esc_html_e( 'Featured Property', 'pbcr-agent-mode' ); ?></span>
 					</div>
 				<?php endif; ?>
 
 				<?php if ( ! empty( $property_data['in_slider'] ) && '1' === $property_data['in_slider'] ) : ?>
 					<div class="property-slider-badge">
 						<span class="slider-icon">🎞️</span>
-						<span class="slider-text">Featured in Slider</span>
+						<span class="slider-text"><?php esc_html_e( 'Featured in Slider', 'pbcr-agent-mode' ); ?></span>
 					</div>
 				<?php endif; ?>
 
 				<?php if ( get_the_content() ) : ?>
 					<div class="property-description">
-						<h3 class="description-title">Description</h3>
+						<h3 class="description-title"><?php esc_html_e( 'Description', 'pbcr-agent-mode' ); ?></h3>
 						<div class="description-content">
 							<?php echo wp_kses_post( get_the_content() ); ?>
 						</div>
@@ -189,7 +163,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 
 				if ( is_array( $details ) && ! empty( $details ) ) : ?>
 					<section class="property-additional-details-direct">
-						<h3>Additional Details (Direct)</h3>
+						<h3><?php esc_html_e( 'Additional Details', 'pbcr-agent-mode' ); ?></h3>
 						<dl class="details-list">
 							<?php foreach ( $details as $item ) :
 								if ( is_array( $item ) && ! empty( $item[0] ) && ! empty( $item[1] ) ) : ?>
@@ -201,85 +175,9 @@ if ( 'publish' !== get_post_status( $post ) ) {
 					</section>
 				<?php endif; ?>
 
-				<?php if ( ! empty( $property_data['extras_raw'] ) && is_array( $property_data['extras_raw'] ) ) : ?>
-					<div class="property-extras">
-						<h3 class="extras-title">Additional Details</h3>
-						<div class="extras-list">
-							<?php foreach ( $property_data['extras_raw'] as $detail ) : ?>
-								<?php if ( is_array( $detail ) && ! empty( $detail['detail_title'] ) && ! empty( $detail['detail_value'] ) ) : ?>
-									<div class="extra-item">
-										<span class="extra-label"><?php echo esc_html( $detail['detail_title'] ); ?>:</span>
-										<span class="extra-value"><?php echo esc_html( $detail['detail_value'] ); ?></span>
-									</div>
-								<?php endif; ?>
-							<?php endforeach; ?>
-						</div>
-					</div>
-				<?php endif; ?>
-
-				<?php
-				// Direct Gallery Implementation - Following task-7 requirements
-				$gallery_meta = get_post_meta( get_the_ID(), 'REAL_HOMES_property_images', false );
-				$gallery_ids = [];
-
-				// Extract gallery IDs using proper structure handling
-				if ( isset( $gallery_meta[0] ) && is_array( $gallery_meta[0] ) ) {
-					// Handle nested array structure (common RealHomes format)
-					$gallery_ids = $gallery_meta[0];
-				} elseif ( is_array( $gallery_meta ) ) {
-					// Handle direct array of IDs
-					$gallery_ids = array_map( 'intval', $gallery_meta );
-				}
-
-				// Debug log if gallery is empty
-				if ( empty( $gallery_ids ) ) {
-					error_log( 'PBCR Agent Mode: Empty gallery for property ID ' . get_the_ID() );
-				}
-
-				// Render gallery if we have valid IDs
-				if ( ! empty( $gallery_ids ) && is_array( $gallery_ids ) ) :
-					// Filter and validate IDs
-					$valid_gallery_ids = array_filter( $gallery_ids, function( $id ) {
-						return is_numeric( $id ) && (int) $id > 0;
-					} );
-					$valid_gallery_ids = array_map( 'intval', $valid_gallery_ids );
-
-					if ( ! empty( $valid_gallery_ids ) ) :
-				?>
-					<section class="property-gallery-direct">
-						<h3>Property Gallery</h3>
-						<figure class="gallery-container">
-							<ul class="gallery-list">
-								<?php foreach ( array_slice( $valid_gallery_ids, 0, 12 ) as $image_id ) : ?>
-									<?php
-									$image_url = wp_get_attachment_image_url( $image_id, 'large' );
-									$thumb_url = wp_get_attachment_image_url( $image_id, 'medium' );
-									$image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
-
-									if ( $image_url ) :
-									?>
-										<li class="gallery-item">
-											<img src="<?php echo esc_url( $thumb_url ? $thumb_url : $image_url ); ?>"
-											     alt="<?php echo esc_attr( $image_alt ? $image_alt : get_the_title() . ' - Gallery Image' ); ?>"
-											     data-full="<?php echo esc_url( $image_url ); ?>"
-											     class="gallery-image">
-										</li>
-									<?php endif; ?>
-								<?php endforeach; ?>
-							</ul>
-							<figcaption class="gallery-count">
-								<?php echo esc_html( sprintf( _n( '%d Image', '%d Images', count( $valid_gallery_ids ), 'pbcr-agent-mode' ), count( $valid_gallery_ids ) ) ); ?>
-							</figcaption>
-						</figure>
-					</section>
-				<?php
-					endif; // End valid gallery check
-				endif; // End gallery check
-				?>
-
 				<?php if ( ! empty( $property_data['gallery_ids'] ) && is_array( $property_data['gallery_ids'] ) ) : ?>
 					<div class="property-gallery">
-						<h3 class="gallery-title">Property Gallery (Helper)</h3>
+						<h3 class="gallery-title"><?php esc_html_e( 'Property Gallery', 'pbcr-agent-mode' ); ?></h3>
 						<div class="gallery-grid">
 							<?php foreach ( array_slice( $property_data['gallery_ids'], 0, 6 ) as $image_id ) : ?>
 								<?php
@@ -303,7 +201,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 
 				<?php if ( ! empty( $property_data['video_data'] ) && ! empty( $property_data['video_data']['url'] ) ) : ?>
 					<div class="property-video">
-						<h3 class="video-title">Property Video</h3>
+						<h3 class="video-title"><?php esc_html_e( 'Property Video', 'pbcr-agent-mode' ); ?></h3>
 						<div class="video-container">
 							<?php if ( ! empty( $property_data['video_data']['image_id'] ) ) : ?>
 								<div class="video-thumbnail">
@@ -311,9 +209,11 @@ if ( 'publish' !== get_post_status( $post ) ) {
 									$video_image_url = wp_get_attachment_image_url( $property_data['video_data']['image_id'], 'medium' );
 									if ( $video_image_url ) :
 										?>
-										<img src="<?php echo esc_url( $video_image_url ); ?>"
-										     alt="Video Thumbnail"
-										     class="video-thumb-image">
+										<img
+											src="<?php echo esc_url( $video_image_url ); ?>"
+											alt="<?php esc_attr_e( 'Video Thumbnail', 'pbcr-agent-mode' ); ?>"
+											class="video-thumb-image"
+										>
 									<?php endif; ?>
 								</div>
 							<?php endif; ?>
@@ -323,7 +223,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 								   rel="noopener"
 								   class="video-play-button">
 									<span class="video-icon">▶</span>
-									Watch Property Video
+									<?php esc_html_e( 'Watch Property Video', 'pbcr-agent-mode' ); ?>
 								</a>
 							</div>
 						</div>
@@ -332,7 +232,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 
 				<?php if ( ! empty( $property_data['agents'] ) && is_array( $property_data['agents'] ) ) : ?>
 					<div class="property-agents">
-						<h3 class="agents-title">Assigned Agents</h3>
+						<h3 class="agents-title"><?php esc_html_e( 'Assigned Agents', 'pbcr-agent-mode' ); ?></h3>
 						<div class="agents-list">
 							<?php foreach ( $property_data['agents'] as $agent ) : ?>
 								<div class="agent-item">
@@ -361,18 +261,18 @@ if ( 'publish' !== get_post_status( $post ) ) {
 
 				<?php if ( ! empty( $property_data['map_data'] ) && is_array( $property_data['map_data'] ) ) : ?>
 					<div class="property-map">
-						<h3 class="map-title">Location Map</h3>
+						<h3 class="map-title"><?php esc_html_e( 'Location Map', 'pbcr-agent-mode' ); ?></h3>
 						<div class="map-info">
 							<?php if ( ! empty( $property_data['map_data']['lat'] ) && ! empty( $property_data['map_data']['lng'] ) ) : ?>
 								<p class="map-coordinates">
-									<span class="coordinates-label">Coordinates:</span>
+									<span class="coordinates-label"><?php esc_html_e( 'Coordinates:', 'pbcr-agent-mode' ); ?></span>
 									<span class="coordinates-value">
 										<?php echo esc_html( $property_data['map_data']['lat'] ); ?>,
 										<?php echo esc_html( $property_data['map_data']['lng'] ); ?>
 									</span>
 								</p>
 							<?php else : ?>
-								<p class="map-fallback">Map data not available</p>
+								<p class="map-fallback"><?php esc_html_e( 'Map data not available', 'pbcr-agent-mode' ); ?></p>
 							<?php endif; ?>
 						</div>
 					</div>
@@ -381,14 +281,14 @@ if ( 'publish' !== get_post_status( $post ) ) {
 				<div class="property-contact">
 					<a href="mailto:contact@example.com" class="contact-button">
 						<span class="contact-icon">✉</span>
-						Contact Agent
+						<?php esc_html_e( 'Contact Agent', 'pbcr-agent-mode' ); ?>
 					</a>
 				</div>
 			</div>
 		</main>
 
 		<footer class="agent-mode-footer">
-			<p>Agent Mode View - Property Sharing</p>
+			<p><?php esc_html_e( 'Agent Mode View - Property Sharing', 'pbcr-agent-mode' ); ?></p>
 		</footer>
 	</div>
 

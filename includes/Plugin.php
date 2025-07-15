@@ -44,6 +44,9 @@ class Plugin {
 	 * Register all plugin functionality.
 	 */
 	public function register() {
+		// Load text domain for translations.
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+
 		// Register the loader.
 		$this->loader->register();
 
@@ -51,6 +54,13 @@ class Plugin {
 		add_action( 'init', array( $this, 'init_rewrite_rules' ) );
 		add_filter( 'template_include', array( $this, 'template_include' ) );
 		add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+	}
+
+	/**
+	 * Load plugin text domain for translations.
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain( 'pbcr-agent-mode', false, dirname( plugin_basename( PBCR_AGENT_MODE_PLUGIN_FILE ) ) . '/languages' );
 	}
 
 	/**
