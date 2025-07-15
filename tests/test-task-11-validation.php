@@ -14,8 +14,7 @@ echo '<h2>Task-11 Validation: AgentViewLinkButton Implementation</h2>';
 
 // Test that old shortcode no longer exists
 echo '<h3>1. Old Shortcode Removal Test:</h3>';
-$old_shortcode_output = do_shortcode( '[agent_view_link]' );
-if ( empty( $old_shortcode_output ) || $old_shortcode_output === '[agent_view_link]' ) {
+if ( ! shortcode_exists( 'agent_view_link' ) ) {
 	echo '<p>✓ [agent_view_link] shortcode properly removed</p>';
 } else {
 	echo '<p>✗ [agent_view_link] shortcode still exists</p>';
