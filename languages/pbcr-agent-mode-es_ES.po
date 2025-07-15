@@ -1,0 +1,145 @@
+# Spanish translation for PBCR Agent Mode
+# Copyright (C) 2025 PBCR Agent Mode
+# This file is distributed under the same license as the PBCR Agent Mode package.
+msgid ""
+msgstr ""
+"Project-Id-Version: PBCR Agent Mode 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pbcr-agent-mode\n"
+"POT-Creation-Date: 2025-01-15 12:00+0000\n"
+"PO-Revision-Date: 2025-07-14 20:05-0600\n"
+"Last-Translator: \n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.6\n"
+"X-Domain: pbcr-agent-mode\n"
+
+#: includes/Views/agent-template.php:89
+msgid "Property ID:"
+msgstr "ID de Propiedad:"
+
+#: includes/Views/agent-template.php:95
+msgid "Price:"
+msgstr "Precio:"
+
+#: includes/Views/agent-template.php:103
+msgid "Property Features"
+msgstr "Características de la Propiedad"
+
+#: includes/Views/agent-template.php:115
+msgid "Size and Location"
+msgstr "Tamaño y Ubicación"
+
+#: includes/Views/agent-template.php:120
+msgid "Total Area:"
+msgstr "Área Total:"
+
+#: includes/Views/agent-template.php:126
+msgid "Location:"
+msgstr "Ubicación:"
+
+#: includes/Views/agent-template.php:134
+msgid "Property Description"
+msgstr "Descripción de la Propiedad"
+
+#: includes/Views/agent-template.php:137
+msgid "No description available"
+msgstr "No hay descripción disponible"
+
+#: includes/Views/agent-template.php:144
+msgid "Property Gallery"
+msgstr "Galería de la Propiedad"
+
+#: includes/Views/agent-template.php:156
+msgid "View Image"
+msgstr "Ver Imagen"
+
+#: includes/Views/agent-template.php:163
+msgid "No gallery images available"
+msgstr "No hay imágenes de galería disponibles"
+
+#: includes/Views/agent-template.php:170
+msgid "Property Video"
+msgstr "Video de la Propiedad"
+
+#: includes/Views/agent-template.php:175
+msgid "Video Thumbnail"
+msgstr "Miniatura del Video"
+
+#: includes/Views/agent-template.php:176
+msgid "Watch Property Video"
+msgstr "Ver Video de la Propiedad"
+
+#: includes/Views/agent-template.php:182
+msgid "No video available"
+msgstr "No hay video disponible"
+
+#: includes/Views/agent-template.php:189
+msgid "Assigned Agents"
+msgstr "Agentes Asignados"
+
+#: includes/Views/agent-template.php:203
+msgid "No agents assigned"
+msgstr "No hay agentes asignados"
+
+#: includes/Views/agent-template.php:264
+msgid "Location Map"
+msgstr "Mapa de Ubicación"
+
+#: includes/Views/agent-template.php:268
+msgid "Coordinates:"
+msgstr "Coordenadas:"
+
+#: includes/Views/agent-template.php:275
+msgid "Map data not available"
+msgstr "Datos del mapa no disponibles"
+
+#: includes/Views/agent-template.php:284
+msgid "Contact Agent"
+msgstr "Contactar Agente"
+
+#: includes/Views/agent-template.php:291
+msgid "Agent Mode View - Property Sharing"
+msgstr "Vista de Modo Agente - Compartir Propiedad"
+
+#: includes/Helpers/PropertyData.php:45
+msgid "Bedroom"
+msgid_plural "Bedrooms"
+msgstr[0] "Dormitorio"
+msgstr[1] "Dormitorios"
+
+#: includes/Helpers/PropertyData.php:46
+msgid "Bathroom"
+msgid_plural "Bathrooms"
+msgstr[0] "Baño"
+msgstr[1] "Baños"
+
+#: includes/Helpers/PropertyData.php:47
+msgid "Garage"
+msgid_plural "Garages"
+msgstr[0] "Garaje"
+msgstr[1] "Garajes"
+
+#: includes/Shortcodes/AgentViewLinkButton.php:53
+msgid "Copy Agent Link"
+msgstr "Copiar Enlace de Agente"
+
+#: includes/js/agent-copy-btn.js:39
+msgid "No URL to copy"
+msgstr "No hay URL para copiar"
+
+#: includes/js/agent-copy-btn.js:58
+#: includes/js/agent-copy-btn.js:79
+msgid "Copied!"
+msgstr "¡Copiado!"
+
+#: includes/js/agent-copy-btn.js:86
+msgid "Copy failed"
+msgstr "Error al copiar"
+
+#: includes/js/agent-copy-btn.js:90
+msgid "Copy not supported"
+msgstr "Copiar no es compatible"

@@ -28,6 +28,9 @@ class Loader {
 		// Register shortcodes.
 		$this->register_shortcodes();
 
+		// Register blocks.
+		$this->register_blocks();
+
 		// Register styles and scripts.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 	}
@@ -36,8 +39,16 @@ class Loader {
 	 * Register all shortcodes.
 	 */
 	private function register_shortcodes() {
-		$agent_view_link = new Shortcodes\AgentViewLink();
-		$agent_view_link->register();
+		$agent_view_link_button = new Shortcodes\AgentViewLinkButton();
+		$agent_view_link_button->register();
+	}
+
+	/**
+	 * Register all blocks.
+	 */
+	private function register_blocks() {
+		$agent_copy_button_block = new Blocks\AgentCopyButton();
+		$agent_copy_button_block->register();
 	}
 
 	/**
