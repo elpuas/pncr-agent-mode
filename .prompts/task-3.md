@@ -43,8 +43,10 @@ Your task is to scaffold a developer-friendly plugin structure, compatible with 
   }
 }
 ```
+
 ### 2. Install and configure WordPress Coding Standards
-	•	Add a .phpcs.xml config file with the following base:
+
+ • Add a .phpcs.xml config file with the following base:
 
 <?xml version="1.0"?>
 <ruleset name="PBCRAgentMode Standards">
@@ -54,12 +56,15 @@ Your task is to scaffold a developer-friendly plugin structure, compatible with 
 </ruleset>
 
 ### 3. Scaffold PHPUnit configuration
-	•	Create a phpunit.xml.dist file with a basic config for plugin testing
-	•	Create a /tests folder with an example test case in tests/test-sample.php
+
+ • Create a phpunit.xml.dist file with a basic config for plugin testing
+ • Create a /tests folder with an example test case in tests/test-sample.php
 
 ### 4. Editor & CI-friendly configs
-	•	Add .editorconfig (tabs, no trailing spaces, etc.)
-	•	Add .gitignore with:
+
+ • Add .editorconfig (tabs, no trailing spaces, etc.)
+ • Add .gitignore with:
+
 ```
 /vendor/
 /node_modules/
@@ -67,10 +72,12 @@ Your task is to scaffold a developer-friendly plugin structure, compatible with 
 /tests/output/
 /phpunit.xml
 ```
-	•	Optionally add a Makefile with shortcuts for make lint, make test, etc.
+
+	• Optionally add a Makefile with shortcuts for make lint, make test, etc.
 
 ### 5. Document in README.md
-	•	Add a ## Development section in README.md with:
+
+ • Add a ## Development section in README.md with:
 
 ## Development
 
