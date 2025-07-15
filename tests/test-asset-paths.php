@@ -22,7 +22,7 @@ echo '<p><strong>Plugin Path:</strong> <code>' . esc_html( $plugin_path ) . '</c
 
 // Test CSS file
 $css_url = $plugin_url . 'includes/css/agent-copy-btn.css';
-$css_path = $plugin_path . '/css/agent-copy-btn.css';
+$css_path = $plugin_path . '/includes/css/agent-copy-btn.css';
 
 echo '<h3>CSS File Debug:</h3>';
 echo '<p><strong>CSS URL:</strong> <code>' . esc_html( $css_url ) . '</code></p>';

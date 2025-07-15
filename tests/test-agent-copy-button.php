@@ -42,7 +42,7 @@ if ( $post && 'property' === get_post_type( $post ) ) {
 }
 
 // Test shortcode detection
-if ( has_shortcode( get_the_content(), 'agent_view_link_button' ) ) {
+if ( isset( $post ) && has_shortcode( $post->post_content, 'agent_view_link_button' ) ) {
 	echo '<p>Shortcode detected in content: ✓</p>';
 } else {
 	echo '<p>Shortcode not detected in content: ✗</p>';
