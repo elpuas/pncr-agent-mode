@@ -102,6 +102,27 @@ msgstr ""
 msgid "Agent Mode View - Property Sharing"
 msgstr ""
 
+#: includes/Shortcodes/AgentViewLinkButton.php:53
+msgid "Copy Agent Link"
+msgstr ""
+
+#: includes/js/agent-copy-btn.js:39
+msgid "No URL to copy"
+msgstr ""
+
+#: includes/js/agent-copy-btn.js:58
+#: includes/js/agent-copy-btn.js:79
+msgid "Copied!"
+msgstr ""
+
+#: includes/js/agent-copy-btn.js:86
+msgid "Copy failed"
+msgstr ""
+
+#: includes/js/agent-copy-btn.js:90
+msgid "Copy not supported"
+msgstr ""
+
 #: includes/Helpers/PropertyData.php:45
 msgid "Bedroom"
 msgid_plural "Bedrooms"

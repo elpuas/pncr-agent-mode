@@ -11,7 +11,8 @@ This plugin allows agents to share specific properties without exposing the comp
 - **Unbranded Property Views**: Clean, minimal property display without theme branding
 - **Mobile Optimized**: Responsive design optimized for mobile devices
 - **Secure Access**: Properties must be published to be accessible
-- **Shortcode Integration**: `[agent_view_link]` shortcode for easy URL generation
+- **Interactive Copy Button**: `[agent_view_link_button]` shortcode with clipboard functionality
+- **Role-Based Access**: Button only visible to authorized users
 - **Independent Operation**: Works independently from RealHomes theme templates
 
 ## Installation
@@ -22,15 +23,42 @@ This plugin allows agents to share specific properties without exposing the comp
 
 ## Usage
 
-### Generating Agent View Links
+### Generating Agent View Copy Buttons
 
-Use the `[agent_view_link]` shortcode within any property post to generate the agent view URL:
+Use the `[agent_view_link_button]` shortcode within any property post to display an interactive copy button:
 
+```html
+[agent_view_link_button]
 ```
-[agent_view_link]
+
+Or with a custom label:
+
+```html
+[agent_view_link_button label="Share Property"]
 ```
 
-This will output a full URL like: `https://yourdomain.com/property/property-name/?agent_view=1`
+#### Security Features
+
+- **Login Required**: Button only visible to logged-in users
+- **Capability Check**: Default requires `edit_posts` capability
+- **Role Customization**: Developers can modify required capability using filter
+
+#### Developer Filter
+
+Customize the required capability:
+
+```php
+add_filter( 'pbcr_agent_button_capability', function( $capability ) {
+    return 'manage_options'; // Only administrators
+});
+```
+
+#### Button Functionality
+
+- **One-Click Copy**: Copies agent view URL to clipboard
+- **Visual Feedback**: Shows "Copied!" message for 2 seconds
+- **Fallback Support**: Works on older browsers
+- **Error Handling**: Displays appropriate messages if copy fails
 
 ### Accessing Agent Views
 
@@ -58,11 +86,16 @@ pbcr-agent-mode/
 │   ├── Plugin.php               # Main plugin class
 │   ├── Loader.php              # Component loader
 │   ├── Shortcodes/
-│   │   └── AgentViewLink.php   # Shortcode handler
+│   │   └── AgentViewLinkButton.php   # Copy button shortcode handler
 │   ├── Views/
 │   │   └── agent-template.php  # Agent view template
-│   └── Css/
-│       └── agent-style.css     # Plugin styles
+│   ├── css/
+│   │   ├── agent-style.css     # Main plugin styles
+│   │   └── agent-copy-btn.css  # Copy button styles
+│   ├── js/
+│   │   └── agent-copy-btn.js   # Clipboard functionality
+│   └── Blocks/
+│       └── AgentCopyButton.php # Gutenberg block support
 ├── logs/                       # Development logs
 └── README.md                   # This file
 ```

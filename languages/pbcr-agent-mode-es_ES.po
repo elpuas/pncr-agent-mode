@@ -122,3 +122,24 @@ msgid "Garage"
 msgid_plural "Garages"
 msgstr[0] "Garaje"
 msgstr[1] "Garajes"
+
+#: includes/Shortcodes/AgentViewLinkButton.php:53
+msgid "Copy Agent Link"
+msgstr "Copiar Enlace de Agente"
+
+#: includes/js/agent-copy-btn.js:39
+msgid "No URL to copy"
+msgstr "No hay URL para copiar"
+
+#: includes/js/agent-copy-btn.js:58
+#: includes/js/agent-copy-btn.js:79
+msgid "Copied!"
+msgstr "¡Copiado!"
+
+#: includes/js/agent-copy-btn.js:86
+msgid "Copy failed"
+msgstr "Error al copiar"
+
+#: includes/js/agent-copy-btn.js:90
+msgid "Copy not supported"
+msgstr "Copiar no es compatible"
