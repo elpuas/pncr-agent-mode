@@ -97,13 +97,13 @@
             gap: 1.5rem;
 
             & .property-info-meta {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				margin-bottom: 1rem;
-				padding: 0.5rem 0;
-				border-bottom: 2px solid #e5e7eb;
-			}
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1rem;
+                padding: 0.5rem 0;
+                border-bottom: 2px solid #e5e7eb;
+            }
 
             /* Price styling with conditional enhancement using :has() */
             & .property-price {
