@@ -148,4 +148,3 @@ if ( getenv( 'WP_TESTS_DIR' ) ) {
 	}
 }
 
-// (Redundant block removed to eliminate duplication.)
