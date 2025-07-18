@@ -297,6 +297,24 @@ class AgentTemplateTest extends TestCase {
 			->once()
 			->andReturn( 'Garage' );
 
+		Functions\when( [ PropertyData::class, 'get_formatted_features' ] )
+			->justReturn([
+				[
+					'label' => 'Bedrooms',
+					'value' => '3',
+					'icon'  => 'bed',
+				],
+				[
+					'label' => 'Bathrooms',
+					'value' => '2',
+					'icon'  => 'bath',
+				],
+				[
+					'label' => 'Garage',
+					'value' => '1',
+					'icon'  => 'garage',
+				],
+			]);
 		$features = PropertyData::get_formatted_features( $property_data );
 
 		$this->assertIsArray( $features );
