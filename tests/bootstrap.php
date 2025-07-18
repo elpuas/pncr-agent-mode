@@ -148,21 +148,4 @@ if ( getenv( 'WP_TESTS_DIR' ) ) {
 	}
 }
 
-// Set up WordPress test environment if available.
-if ( getenv( 'WP_TESTS_DIR' ) ) {
-	$wp_tests_dir = getenv( 'WP_TESTS_DIR' );
-
-	if ( file_exists( $wp_tests_dir . '/includes/functions.php' ) ) {
-		require_once $wp_tests_dir . '/includes/functions.php';
-
-		/**
-		 * Manually load the plugin for testing.
-		 */
-		function _manually_load_plugin() {
-			require PBCR_AGENT_MODE_PLUGIN_FILE;
-		}
-		tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
-
-		require $wp_tests_dir . '/includes/bootstrap.php';
-	}
-}
+// (Redundant block removed to eliminate duplication.)
