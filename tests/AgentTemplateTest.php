@@ -408,6 +408,10 @@ class AgentTemplateTest extends TestCase {
 			->once()
 			->andReturn( '480000' );
 
+		Functions\expect( 'get_post_meta' )
+			->with( 123, 'REAL_HOMES_property_price_postfix', true )
+			->once()
+			->andReturn( '' ); // Assuming no postfix is used for simplicity.
 		$price = PropertyData::get_property_data( 123 )['price'];
 
 		$this->assertEquals( '480,000', $price );
