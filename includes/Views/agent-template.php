@@ -120,7 +120,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 					</div>
 				<?php endif; ?>
 
-				<div class="features-grid-wrapper">
+					<div class="features-grid-wrapper">
 					<?php if ( ! empty( $property_data['size'] ) ) : ?>
 						<div class="property-size">
 							<span class="size-label"><?php esc_html_e( 'Size:', 'pbcr-agent-mode' ); ?></span>
