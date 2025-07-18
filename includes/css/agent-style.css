@@ -96,7 +96,7 @@
             flex-direction: column;
             gap: 1.5rem;
 
-			& .property-info-meta {
+            & .property-info-meta {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
