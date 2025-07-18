@@ -209,12 +209,12 @@
             }
 
 
-			& .features-grid-wrapper {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-				gap: 1rem;
-				margin-top: 1rem;
-			}
+            & .features-grid-wrapper {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+                margin-top: 1rem;
+            }
 
             /* Property Size - Match feature cards style */
             & .property-size {
