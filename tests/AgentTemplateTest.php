@@ -357,6 +357,10 @@ class AgentTemplateTest extends TestCase {
 			->once()
 			->andReturn( $serialized_video );
 
+		Functions\expect( 'get_post_meta' )
+			->with( 123, 'inspiry_video_group_image', true )
+			->once()
+			->andReturn( [ '62' ] );
 		$video_data = PropertyData::get_property_data( 123 )['video_data'];
 
 		$this->assertIsArray( $video_data );
