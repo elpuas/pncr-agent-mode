@@ -59,6 +59,7 @@
             margin: 0;
             color: #1a1a1a;
             line-height: 1.2;
+			text-align: center;
         }
     }
 
@@ -73,7 +74,7 @@
 
         /* Property image section */
         & .property-image {
-            grid-area: image;
+            width: 100%;
 
             & .featured-image {
                 width: 100%;
@@ -95,6 +96,15 @@
             flex-direction: column;
             gap: 1.5rem;
 
+			& .property-info-meta {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 1rem;
+				padding: 0.5rem 0;
+				border-bottom: 2px solid #e5e7eb;
+			}
+
             /* Price styling with conditional enhancement using :has() */
             & .property-price {
                 font-size: 1.5rem;
@@ -103,12 +113,6 @@
                 display: flex;
                 align-items: baseline;
                 gap: 0.5rem;
-
-                /* Enhanced styling when price is actually present */
-                &:not(:empty) {
-                    padding: 0.5rem 0;
-                    border-bottom: 2px solid #e5e7eb;
-                }
 
                 & .price-label {
                     font-size: 1rem;
@@ -204,44 +208,61 @@
                 }
             }
 
-            /* Property Size */
+
+			& .features-grid-wrapper {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+				gap: 1rem;
+				margin-top: 1rem;
+			}
+
+            /* Property Size - Match feature cards style */
             & .property-size {
                 display: flex;
-                align-items: baseline;
-                gap: 0.5rem;
-                font-size: 1.1rem;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 1rem;
+                background: #f9fafb;
+                border-radius: 8px;
+                border: 1px solid #e5e7eb;
 
                 & .size-label {
-                    font-weight: 500;
+                    font-size: 0.875rem;
                     color: #6b7280;
+                    font-weight: 500;
+                    margin-bottom: 0.25rem;
                 }
 
                 & .size-value {
-                    font-weight: 600;
-                    color: #1f2937;
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    color: #2563eb;
                 }
             }
 
-            /* Location with icon support using :has() */
+            /* Property Location - Match feature cards style */
             & .property-location {
-                font-size: 1.1rem;
-                color: #6b7280;
                 display: flex;
+                flex-direction: column;
                 align-items: center;
-                gap: 0.5rem;
-
-                /* Style differently if it has an icon */
-                &:has(.location-icon) {
-                    font-weight: 500;
-                }
+                text-align: center;
+                padding: 1rem;
+                background: #f9fafb;
+                border-radius: 8px;
+                border: 1px solid #e5e7eb;
 
                 & .location-icon {
                     font-size: 1.2rem;
+                    margin-bottom: 0.5rem;
+                    display: block;
                 }
 
                 & .location-value {
-                    color: #1f2937;
-                    font-weight: 500;
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    color: #2563eb;
+                    margin-bottom: 0.25rem;
                 }
             }
 
@@ -402,16 +423,6 @@
                 /* Add visual separator when price is present */
                 & .property-price {
                     position: relative;
-
-                    &::after {
-                        content: '';
-                        position: absolute;
-                        bottom: -0.75rem;
-                        left: 0;
-                        width: 60px;
-                        height: 2px;
-                        background: linear-gradient(90deg, #2563eb, transparent);
-                    }
                 }
             }
         }
@@ -694,8 +705,7 @@
         margin-bottom: 2rem;
         padding: 1.5rem;
         background-color: #f8f9fa;
-        border-radius: 12px;
-        border-left: 4px solid #007bff;
+        border-radius: 8px;
 
         & h3 {
             font-size: 1.25rem;
@@ -708,7 +718,7 @@
             margin: 0;
             display: grid;
             grid-template-columns: 1fr 2fr;
-            gap: 0.5rem 1rem;
+            gap: 0.5rem 0;
             align-items: start;
 
             & dt {
