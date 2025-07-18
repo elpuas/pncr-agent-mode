@@ -90,7 +90,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 						</div>
 					</div>
 				<?php endif; ?>
-				<div class="property-info-meta">
+					<div class="property-info-meta">
 					<?php if ( ! empty( $property_data['price'] ) ) : ?>
 						<div class="property-price">
 							<span class="price-label"><?php esc_html_e( 'Price:', 'pbcr-agent-mode' ); ?></span>
