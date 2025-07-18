@@ -146,7 +146,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 							</div>
 						<?php endif; ?>
 					<?php endif; ?>
-					</div>
+					</div> <!-- .features-grid-wrapper -->
 
 				<?php if ( ! empty( $property_data['in_slider'] ) && '1' === $property_data['in_slider'] ) : ?>
 					<div class="property-slider-badge">
