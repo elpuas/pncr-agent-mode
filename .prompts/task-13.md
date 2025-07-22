@@ -11,7 +11,7 @@ Class "PBCRAgentMode\Blocks\AgentCopyButton" not found
 
 	•	Local works, production fails → likely due to case-sensitive file system issue.
 	•	Namespace declared in code: PBCRAgentMode\Blocks.
-	•	The autoloader expects folder includes/Blocks/, but current folder might be lowercase blocks.
+	•	The autoloader expects folder includes/Blocks/, but current folder might be lowercase blocks. PSR-4 requires exact case matching between namespace segments and directory names, so the 'Blocks' namespace must correspond to a 'Blocks/' directory.
 
 ⸻
 
