@@ -76,9 +76,9 @@ class AgentCopyButton {
 
 		wp_enqueue_script(
 			'pbcr-agent-copy-button-block',
-			$plugin_url . 'includes/blocks/agent-copy-button.js',
+			$plugin_url . 'includes/Blocks/agent-copy-button.js',
 			[ 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-i18n' ],
-			filemtime( $plugin_path . '/blocks/agent-copy-button.js' ),
+			filemtime( $plugin_path . '/Blocks/agent-copy-button.js' ),
 			true
 		);
 
