@@ -124,7 +124,7 @@ if ( 'publish' !== get_post_status( $post ) ) {
 					<?php if ( ! empty( $property_data['size'] ) ) : ?>
 						<div class="property-size">
 							<span class="size-label"><?php esc_html_e( 'Size:', 'pbcr-agent-mode' ); ?></span>
-							<span class="size-value"><?php echo esc_html( $property_data['size'] ); ?> <?php echo esc_html( $property_data['size_unit'] ); ?></span>
+							<span class="size-value"><?php echo esc_html( $property_data['size'] ); ?> m²</span>
 						</div>
 					<?php endif; ?>
 
