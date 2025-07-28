@@ -1,0 +1,78 @@
+{
+  "task": "update_template_agent_mode",
+  "context": "PBCR Agent Mode Plugin - Corredor View",
+  "target_template": "agent-mode/property-template.php",
+  "description": "Update the frontend template used in agent mode to include all the new fields added in Task-14 to PropertyData::get_property_data(). Do not remove or break existing fields. Just append or conditionally display the new ones where appropriate.",
+  "fields_to_add": [
+    {
+      "key": "status",
+      "label": "Property Status",
+      "type": "taxonomy_term",
+      "example": "Para Alquiler"
+    },
+    {
+      "key": "type",
+      "label": "Property Type",
+      "type": "taxonomy_term",
+      "example": "Casa en Condominio"
+    },
+    {
+      "key": "breadcrumbs",
+      "label": "Ubicación",
+      "type": "array",
+      "format": " › joined path",
+      "example": "San José › Escazú › San Rafael"
+    },
+    {
+      "key": "land_size",
+      "label": "Tamaño de terreno",
+      "type": "number",
+      "unit_key": "land_unit",
+      "default_unit": "m²"
+    },
+    {
+      "key": "currency_prefix",
+      "label": "Símbolo de moneda",
+      "type": "string",
+      "example": "$"
+    },
+    {
+      "key": "currency_suffix",
+      "label": "Sufijo de moneda",
+      "type": "string",
+      "example": "+ IVA"
+    },
+    {
+      "key": "description",
+      "label": "Descripción",
+      "type": "html",
+      "sanitize": true
+    },
+    {
+      "key": "features",
+      "label": "Características",
+      "type": "array",
+      "format": "ul list",
+      "source": "class_list `property-feature-*`"
+    },
+    {
+      "key": "gallery_urls",
+      "label": "Galería",
+      "type": "array",
+      "format": "image thumbnails"
+    },
+    {
+      "key": "featured_url",
+      "label": "Imagen destacada",
+      "type": "image"
+    }
+  ],
+  "render_instructions": {
+    "position": "append_after_existing_fields",
+    "preserve_layout": true,
+    "use_existing_classes": true,
+    "conditional_rendering": true,
+    "translation_function": "esc_html_e or _e",
+    "notes": "Ensure translation functions are used consistently. If a field is empty, skip rendering its section."
+  }
+}

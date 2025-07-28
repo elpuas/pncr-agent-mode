@@ -33,6 +33,10 @@ if ( 'publish' !== get_post_status( $post ) ) {
 	exit;
 }
 
+// Get property data using our helper function.
+$property_data = pbcr_agent_get_property_data();
+$features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $property_data );
+
 
 
 ?>
@@ -49,39 +53,38 @@ if ( 'publish' !== get_post_status( $post ) ) {
 	<div class="agent-mode-container">
 		<header class="agent-mode-header">
 			<h1 class="property-title"><?php echo esc_html( get_the_title() ); ?></h1>
+			<?php if ( ! empty( $property_data['status'] ) || ! empty( $property_data['type'] ) ) : ?>
+				<div class="property-meta-badges">
+					<?php if ( ! empty( $property_data['status'] ) ) : ?>
+						<span class="property-status"><?php echo esc_html( $property_data['status'] ); ?></span>
+					<?php endif; ?>
+					<?php if ( ! empty( $property_data['type'] ) ) : ?>
+						<span class="property-type"><?php echo esc_html( $property_data['type'] ); ?></span>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
 		</header>
 
 		<main class="agent-mode-content">
-			<?php
-			// Get property data using our helper function.
-			$property_data = pbcr_agent_get_property_data();
-			$features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $property_data );
-			?>
-
 			<div class="property-image">
-				<?php if ( has_post_thumbnail() ) : ?>
-					<img src="<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'large' ) ); ?>"
+				<?php if ( ! empty( $property_data['featured_url'] ) ) : ?>
+					<img src="<?php echo esc_url( $property_data['featured_url'] ); ?>"
 					alt="<?php echo esc_attr( get_the_title() ); ?>"
 					class="featured-image">
 				<?php endif; ?>
 			</div>
 
 			<div class="property-details">
-				<?php if ( ! empty( $property_data['gallery_ids'] ) && is_array( $property_data['gallery_ids'] ) ) : ?>
+				<?php if ( ! empty( $property_data['gallery_urls'] ) && is_array( $property_data['gallery_urls'] ) ) : ?>
 					<div class="property-gallery">
 						<h3 class="gallery-title"><?php esc_html_e( 'Property Gallery', 'pbcr-agent-mode' ); ?></h3>
 						<div class="gallery-grid">
-							<?php foreach ( array_slice( $property_data['gallery_ids'], 0, 6 ) as $image_id ) : ?>
-								<?php
-								$image_url = wp_get_attachment_image_url( $image_id, 'medium' );
-								$image_full_url = wp_get_attachment_image_url( $image_id, 'large' );
-								$image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
-								if ( $image_url ) :
-									?>
+							<?php foreach ( array_slice( $property_data['gallery_urls'], 0, 6 ) as $image_url ) : ?>
+								<?php if ( $image_url ) : ?>
 									<div class="gallery-item">
-										<a href="<?php echo esc_url( $image_full_url ); ?>" target="_blank" rel="noopener">
+										<a href="<?php echo esc_url( $image_url ); ?>" target="_blank" rel="noopener">
 											<img src="<?php echo esc_url( $image_url ); ?>"
-											alt="<?php echo esc_attr( $image_alt ? $image_alt : get_the_title() . ' - Gallery Image' ); ?>"
+											alt="<?php echo esc_attr( get_the_title() . ' - Gallery Image' ); ?>"
 											class="gallery-image">
 										</a>
 									</div>
@@ -94,7 +97,15 @@ if ( 'publish' !== get_post_status( $post ) ) {
 					<?php if ( ! empty( $property_data['price'] ) ) : ?>
 						<div class="property-price">
 							<span class="price-label"><?php esc_html_e( 'Price:', 'pbcr-agent-mode' ); ?></span>
-							<span class="price-value">$<?php echo esc_html( $property_data['price'] ); ?></span>
+							<span class="price-value">
+								<?php if ( ! empty( $property_data['currency_prefix'] ) ) : ?>
+									<?php echo esc_html( $property_data['currency_prefix'] ); ?>
+								<?php endif; ?>
+								<?php echo esc_html( $property_data['price'] ); ?>
+								<?php if ( ! empty( $property_data['currency_suffix'] ) ) : ?>
+									<?php echo esc_html( ' ' . $property_data['currency_suffix'] ); ?>
+								<?php endif; ?>
+							</span>
 						</div>
 					<?php endif; ?>
 
@@ -146,6 +157,27 @@ if ( 'publish' !== get_post_status( $post ) ) {
 							</div>
 						<?php endif; ?>
 					<?php endif; ?>
+
+					<?php if ( ! empty( $property_data['breadcrumbs'] ) && is_array( $property_data['breadcrumbs'] ) ) : ?>
+						<div class="property-breadcrumbs">
+							<span class="breadcrumbs-label"><?php esc_html_e( 'Ubicación:', 'pbcr-agent-mode' ); ?></span>
+							<span class="breadcrumbs-value"><?php echo esc_html( implode( ' › ', $property_data['breadcrumbs'] ) ); ?></span>
+						</div>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $property_data['land_size'] ) ) : ?>
+						<div class="property-land-size">
+							<span class="land-size-label"><?php esc_html_e( 'Tamaño de terreno:', 'pbcr-agent-mode' ); ?></span>
+							<span class="land-size-value">
+								<?php echo esc_html( $property_data['land_size'] ); ?>
+								<?php if ( ! empty( $property_data['land_unit'] ) ) : ?>
+									<?php echo esc_html( ' ' . $property_data['land_unit'] ); ?>
+								<?php else : ?>
+									m²
+								<?php endif; ?>
+							</span>
+						</div>
+					<?php endif; ?>
 					</div> <!-- .features-grid-wrapper -->
 
 				<?php if ( ! empty( $property_data['in_slider'] ) && '1' === $property_data['in_slider'] ) : ?>
@@ -155,11 +187,11 @@ if ( 'publish' !== get_post_status( $post ) ) {
 					</div>
 				<?php endif; ?>
 
-				<?php if ( get_the_content() ) : ?>
+				<?php if ( ! empty( $property_data['description'] ) ) : ?>
 					<div class="property-description">
 						<h3 class="description-title"><?php esc_html_e( 'Description', 'pbcr-agent-mode' ); ?></h3>
 						<div class="description-content">
-							<?php echo wp_kses_post( strip_shortcodes( get_the_content() ) ); ?>
+							<?php echo wp_kses_post( $property_data['description'] ); ?>
 						</div>
 					</div>
 				<?php endif; ?>

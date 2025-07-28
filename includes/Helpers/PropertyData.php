@@ -37,6 +37,7 @@ class PropertyData {
 		}
 
 		return [
+			// Existing fields (backward compatibility)
 			'price'        => self::get_formatted_price( $property_id ),
 			'size'         => self::get_formatted_size( $property_id ),
 			'size_unit'    => self::get_size_unit( $property_id ),
@@ -54,6 +55,19 @@ class PropertyData {
 			'video_data'   => self::get_video_data( $property_id ),
 			'agents'       => self::get_assigned_agents( $property_id ),
 			'extras_raw'   => self::get_additional_details( $property_id ),
+
+			// New fields (Task-14 enhancements)
+			'status'           => self::get_property_status( $property_id ),
+			'type'             => self::get_property_type( $property_id ),
+			'breadcrumbs'      => self::get_location_breadcrumbs( $property_id ),
+			'land_size'        => self::get_formatted_land_size( $property_id ),
+			'land_unit'        => self::get_land_unit( $property_id ),
+			'currency_prefix'  => self::get_currency_prefix( $property_id ),
+			'currency_suffix'  => self::get_currency_suffix( $property_id ),
+			'description'      => self::get_property_description( $property_id ),
+			'features'         => self::get_property_features( $property_id ),
+			'gallery_urls'     => self::get_gallery_urls( $property_id ),
+			'featured_url'     => self::get_featured_image_url( $property_id ),
 		];
 	}
 
@@ -346,5 +360,232 @@ class PropertyData {
 		}
 
 		return $agents;
+	}
+
+	/**
+	 * Get taxonomy terms for a property.
+	 *
+	 * @param int    $property_id The property post ID.
+	 * @param string $taxonomy    The taxonomy name.
+	 * @param bool   $single      Whether to return single term or array (default: true).
+	 * @return string|array Single term name, array of terms, or empty string/array.
+	 */
+	private static function get_property_taxonomy_terms( $property_id, $taxonomy, $single = true ) {
+		$terms = \wp_get_post_terms( $property_id, $taxonomy, [ 'fields' => 'names' ] );
+
+		if ( \is_wp_error( $terms ) || empty( $terms ) ) {
+			return $single ? '' : [];
+		}
+
+		return $single ? $terms[0] : $terms;
+	}
+
+	/**
+	 * Get property status from taxonomy.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return string Property status label or empty string.
+	 */
+	private static function get_property_status( $property_id ) {
+		return self::get_property_taxonomy_terms( $property_id, 'property-status' );
+	}
+
+	/**
+	 * Get property type from taxonomy.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return string Property type label or empty string.
+	 */
+	private static function get_property_type( $property_id ) {
+		return self::get_property_taxonomy_terms( $property_id, 'property-type' );
+	}
+
+	/**
+	 * Get location breadcrumbs from taxonomies.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return array Array of location hierarchy (city, state, etc.).
+	 */
+	private static function get_location_breadcrumbs( $property_id ) {
+		$breadcrumbs = [];
+
+		// Get city terms
+		$cities = self::get_property_taxonomy_terms( $property_id, 'property-city', false );
+		$breadcrumbs = array_merge( $breadcrumbs, $cities );
+
+		// Get state terms
+		$states = self::get_property_taxonomy_terms( $property_id, 'property-state', false );
+		$breadcrumbs = array_merge( $breadcrumbs, $states );
+
+		return $breadcrumbs;
+	}
+
+	/**
+	 * Get and format property land size.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return string Formatted land size or empty string.
+	 */
+	private static function get_formatted_land_size( $property_id ) {
+		$land_size = self::get_meta_value( $property_id, 'REAL_HOMES_property_lot_size' );
+
+		if ( empty( $land_size ) ) {
+			return '';
+		}
+
+		// Remove any non-numeric characters except decimal points.
+		$numeric_size = preg_replace( '/[^\d.]/', '', $land_size );
+
+		if ( is_numeric( $numeric_size ) ) {
+			return number_format( (float) $numeric_size );
+		}
+
+		return $land_size; // Return original if not numeric.
+	}
+
+	/**
+	 * Get property land size unit.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return string Land size unit or default.
+	 */
+	private static function get_land_unit( $property_id ) {
+		$unit = self::get_meta_value( $property_id, 'REAL_HOMES_property_lot_size_postfix' );
+		return ! empty( $unit ) ? $unit : 'm²';
+	}
+
+	/**
+	 * Get currency prefix symbol.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return string Currency prefix symbol or empty string.
+	 */
+	private static function get_currency_prefix( $property_id ) {
+		$symbol = self::get_meta_value( $property_id, 'REAL_HOMES_currency_symbol' );
+		if ( empty( $symbol ) ) {
+			// Fallback to global option
+			$symbol = self::get_meta_value( $property_id, 'REAL_HOMES_currency' );
+		}
+		return $symbol;
+	}
+
+	/**
+	 * Get currency suffix.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return string Currency suffix or empty string.
+	 */
+	private static function get_currency_suffix( $property_id ) {
+		return self::get_meta_value( $property_id, 'REAL_HOMES_currency_suffix' );
+	}
+
+	/**
+	 * Get property description with shortcodes stripped.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return string Property description with shortcodes removed.
+	 */
+	private static function get_property_description( $property_id ) {
+		$content = \get_post_field( 'post_content', $property_id );
+
+		if ( empty( $content ) ) {
+			return '';
+		}
+
+		// Strip shortcodes and return clean content
+		return \strip_shortcodes( $content );
+	}
+
+	/**
+	 * Get property features from class_list or taxonomy.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return array Array of formatted feature labels.
+	 */
+	private static function get_property_features( $property_id ) {
+		$features = [];
+
+		// First try to get from class_list
+		$class_list = self::get_meta_value( $property_id, 'class_list' );
+		if ( ! empty( $class_list ) ) {
+			// Parse property-feature-* classes
+			if ( preg_match_all( '/property-feature-([a-zA-Z0-9-_]+)/', $class_list, $matches ) ) {
+				foreach ( $matches[1] as $feature_slug ) {
+					// Convert slug to readable label
+					$features[] = ucwords( str_replace( '-', ' ', $feature_slug ) );
+				}
+			}
+		}
+
+		// Fallback to property-feature taxonomy if no class_list features found
+		if ( empty( $features ) ) {
+			$terms = \wp_get_post_terms( $property_id, 'property-feature', [ 'fields' => 'names' ] );
+			if ( ! \is_wp_error( $terms ) && ! empty( $terms ) ) {
+				$features = $terms;
+			}
+		}
+
+		return $features;
+	}
+
+	/**
+	 * Get a single attachment image URL.
+	 *
+	 * @param int|string $attachment_id The attachment ID.
+	 * @param string     $size          Image size (default: 'full').
+	 * @return string Image URL or empty string if invalid.
+	 */
+	private static function get_attachment_url( $attachment_id, $size = 'full' ) {
+		if ( empty( $attachment_id ) || ! is_numeric( $attachment_id ) ) {
+			return '';
+		}
+
+		$url = \wp_get_attachment_image_url( (int) $attachment_id, $size );
+		return $url ? $url : '';
+	}
+
+	/**
+	 * Convert multiple attachment IDs to URLs.
+	 *
+	 * @param array  $attachment_ids Array of attachment IDs.
+	 * @param string $size          Image size (default: 'full').
+	 * @return array Array of valid image URLs.
+	 */
+	private static function get_multiple_attachment_urls( $attachment_ids, $size = 'full' ) {
+		if ( ! is_array( $attachment_ids ) || empty( $attachment_ids ) ) {
+			return [];
+		}
+
+		$urls = [];
+		foreach ( $attachment_ids as $attachment_id ) {
+			$url = self::get_attachment_url( $attachment_id, $size );
+			if ( ! empty( $url ) ) {
+				$urls[] = $url;
+			}
+		}
+
+		return $urls;
+	}
+
+	/**
+	 * Get gallery image URLs from gallery IDs.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return array Array of image URLs.
+	 */
+	private static function get_gallery_urls( $property_id ) {
+		$gallery_ids = self::get_gallery_ids( $property_id );
+		return self::get_multiple_attachment_urls( $gallery_ids );
+	}
+
+	/**
+	 * Get featured image URL.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return string Featured image URL or empty string.
+	 */
+	private static function get_featured_image_url( $property_id ) {
+		$thumbnail_id = self::get_meta_value( $property_id, '_thumbnail_id' );
+		return self::get_attachment_url( $thumbnail_id );
 	}
 }
