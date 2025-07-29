@@ -1,0 +1,49 @@
+{
+  "task": "Update Agent Mode Template to Display Enhanced PropertyData Fields",
+  "context": {
+    "template_path": "templates/agent-mode-template.php",
+    "data_source": "PBCRAgentMode\\Helpers\\PropertyData::get_property_data()",
+    "fields_added_in_task_14": [
+      "land_size",
+      "land_unit",
+      "currency_prefix",
+      "currency_suffix",
+      "features"
+    ]
+  },
+  "instructions": [
+    {
+      "objective": "Replace hardcoded image URLs with dynamic 'featured_url'",
+      "action": "Use the 'featured_url' field instead of hardcoded image paths when rendering the featured image",
+      "selector": ".property-image img.featured-image"
+    },
+    {
+      "objective": "Replace gallery rendering with dynamic 'gallery_urls'",
+      "action": "Use 'gallery_urls' array instead of constructing gallery from 'gallery_ids'",
+      "note": "Each gallery URL should be rendered in a <div class='gallery-item'> with an <img> and anchor wrapping it"
+    },
+    {
+      "objective": "Update price rendering to include currency prefix and suffix",
+      "action": "Wrap the formatted price with 'currency_prefix' and 'currency_suffix' if present",
+      "selector": ".property-price .price-value"
+    },
+    {
+      "objective": "Display land size if available",
+      "action": "Below the property size block, add another <div class='property-land-size'> element showing 'land_size' + 'land_unit'",
+      "condition": "Only render if land_size is not empty"
+    },
+    {
+      "objective": "Display additional property features (class_list extracted ones)",
+      "action": "Render a new section <div class='property-extra-features'> with each item from 'features' array, using the label as plain text",
+      "note": "Use a bullet or icon optionally, keep it simple"
+    },
+    {
+      "objective": "Preserve existing layout and class names",
+      "action": "Do not remove or alter existing HTML structure unless necessary"
+    },
+    {
+      "objective": "Avoid breaking backward compatibility",
+      "action": "Ensure existing fields like 'price', 'description', 'gallery_ids', 'featured_id' continue to render as fallback if new fields are empty"
+    }
+  ]
+}

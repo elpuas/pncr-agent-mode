@@ -71,6 +71,11 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 					<img src="<?php echo esc_url( $property_data['featured_url'] ); ?>"
 					alt="<?php echo esc_attr( get_the_title() ); ?>"
 					class="featured-image">
+				<?php elseif ( has_post_thumbnail() ) : ?>
+					<!-- Fallback to WordPress thumbnail for backward compatibility -->
+					<img src="<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'large' ) ); ?>"
+					alt="<?php echo esc_attr( get_the_title() ); ?>"
+					class="featured-image">
 				<?php endif; ?>
 			</div>
 
@@ -85,6 +90,29 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 										<a href="<?php echo esc_url( $image_url ); ?>" target="_blank" rel="noopener">
 											<img src="<?php echo esc_url( $image_url ); ?>"
 											alt="<?php echo esc_attr( get_the_title() . ' - Gallery Image' ); ?>"
+											class="gallery-image">
+										</a>
+									</div>
+								<?php endif; ?>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				<?php elseif ( ! empty( $property_data['gallery_ids'] ) && is_array( $property_data['gallery_ids'] ) ) : ?>
+					<!-- Fallback to gallery_ids for backward compatibility -->
+					<div class="property-gallery">
+						<h3 class="gallery-title"><?php esc_html_e( 'Property Gallery', 'pbcr-agent-mode' ); ?></h3>
+						<div class="gallery-grid">
+							<?php foreach ( array_slice( $property_data['gallery_ids'], 0, 6 ) as $image_id ) : ?>
+								<?php
+								$image_url = wp_get_attachment_image_url( $image_id, 'medium' );
+								$image_full_url = wp_get_attachment_image_url( $image_id, 'large' );
+								$image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+								if ( $image_url ) :
+									?>
+									<div class="gallery-item">
+										<a href="<?php echo esc_url( $image_full_url ); ?>" target="_blank" rel="noopener">
+											<img src="<?php echo esc_url( $image_url ); ?>"
+											alt="<?php echo esc_attr( $image_alt ? $image_alt : get_the_title() . ' - Gallery Image' ); ?>"
 											class="gallery-image">
 										</a>
 									</div>
@@ -128,6 +156,20 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 								</div>
 							<?php endforeach; ?>
 						</div>
+					</div>
+				<?php endif; ?>
+
+				<?php if ( ! empty( $property_data['features'] ) && is_array( $property_data['features'] ) ) : ?>
+					<div class="property-extra-features">
+						<h3 class="extra-features-title"><?php esc_html_e( 'Additional Features', 'pbcr-agent-mode' ); ?></h3>
+						<ul class="extra-features-list">
+							<?php foreach ( $property_data['features'] as $feature_name ) : ?>
+								<li class="extra-feature-item">
+									<span class="feature-bullet">•</span>
+									<span class="feature-text"><?php echo esc_html( $feature_name ); ?></span>
+								</li>
+							<?php endforeach; ?>
+						</ul>
 					</div>
 				<?php endif; ?>
 
@@ -192,6 +234,14 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 						<h3 class="description-title"><?php esc_html_e( 'Description', 'pbcr-agent-mode' ); ?></h3>
 						<div class="description-content">
 							<?php echo wp_kses_post( $property_data['description'] ); ?>
+						</div>
+					</div>
+				<?php elseif ( get_the_content() ) : ?>
+					<!-- Fallback to get_the_content() for backward compatibility -->
+					<div class="property-description">
+						<h3 class="description-title"><?php esc_html_e( 'Description', 'pbcr-agent-mode' ); ?></h3>
+						<div class="description-content">
+							<?php echo wp_kses_post( strip_shortcodes( get_the_content() ) ); ?>
 						</div>
 					</div>
 				<?php endif; ?>
