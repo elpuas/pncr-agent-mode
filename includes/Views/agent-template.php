@@ -53,6 +53,13 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 	<div class="agent-mode-container">
 		<header class="agent-mode-header">
 			<h1 class="property-title"><?php echo esc_html( get_the_title() ); ?></h1>
+			<?php
+			/**
+			 * Task-17: Existing status badges suppressed to avoid duplication.
+			 * Status is now displayed in the RealHomes-style price section below.
+			 */
+			?>
+			<?php /* Commented out to avoid duplication with new RealHomes-style status in price section
 			<?php if ( ! empty( $property_data['status'] ) || ! empty( $property_data['type'] ) ) : ?>
 				<div class="property-meta-badges">
 					<?php if ( ! empty( $property_data['status'] ) ) : ?>
@@ -63,6 +70,7 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
+			*/ ?>
 		</header>
 
 		<main class="agent-mode-content">
@@ -122,18 +130,32 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 					</div>
 				<?php endif; ?>
 					<div class="property-info-meta">
-					<?php if ( ! empty( $property_data['price'] ) ) : ?>
-						<div class="property-price">
-							<span class="price-label"><?php esc_html_e( 'Price:', 'pbcr-agent-mode' ); ?></span>
-							<span class="price-value">
-								<?php if ( ! empty( $property_data['currency_prefix'] ) ) : ?>
-									<?php echo esc_html( $property_data['currency_prefix'] ); ?>
-								<?php endif; ?>
-								<?php echo esc_html( $property_data['price'] ); ?>
-								<?php if ( ! empty( $property_data['currency_suffix'] ) ) : ?>
-									<?php echo esc_html( ' ' . $property_data['currency_suffix'] ); ?>
-								<?php endif; ?>
-							</span>
+
+					<!-- Task-17: RealHomes-style price section -->
+					<?php if ( ! empty( $property_data['price'] ) || ! empty( $property_data['status'] ) ) : ?>
+						<div class="rh_page__property_price">
+							<?php if ( ! empty( $property_data['status'] ) ) : ?>
+								<p class="status"><?php echo esc_html( $property_data['status'] ); ?></p>
+							<?php endif; ?>
+
+							<?php if ( ! empty( $property_data['price'] ) ) : ?>
+								<p class="price">
+									<span class="property-price-wrapper">
+										<?php if ( ! empty( $property_data['currency_prefix'] ) ) : ?>
+											<?php echo esc_html( $property_data['currency_prefix'] ); ?>
+										<?php endif; ?>
+										<ins class="property-current-price">$<?php echo esc_html( $property_data['price'] ); ?></ins>
+										<?php if ( ! empty( $property_data['old_price'] ) ) : ?>
+											<del class="property-old-price">
+												$<?php echo esc_html( $property_data['old_price'] ); ?>
+											</del>
+										<?php endif; ?>
+										<?php if ( ! empty( $property_data['currency_suffix'] ) ) : ?>
+											<?php echo esc_html( ' ' . $property_data['currency_suffix'] ); ?>
+										<?php endif; ?>
+									</span>
+								</p>
+							<?php endif; ?>
 						</div>
 					<?php endif; ?>
 

@@ -1,0 +1,45 @@
+{
+  "task": "Refactor Property Price Section in Agent Mode Template",
+  "context": {
+    "template_path": "templates/agent-mode-template.php",
+    "data_source": "PBCRAgentMode\\Helpers\\PropertyData::get_property_data()",
+    "expected_fields": [
+      "price",
+      "old_price",
+      "currency_prefix",
+      "currency_suffix",
+      "status",
+      "type"
+    ]
+  },
+  "instructions": [
+    {
+      "objective": "Render the full price section like RealHomes format",
+      "action": "Wrap all pricing info in a <div class='rh_page__property_price'> container"
+    },
+    {
+      "objective": "Display the property status",
+      "action": "Add a <p class='status'> element showing the translated status field",
+      "source": "data['status']"
+    },
+    {
+      "objective": "Display the price block",
+      "action": "Use a <p class='price'> block that includes:",
+      "details": [
+        "Opening <span class='property-price-wrapper'>",
+        "If 'currency_prefix' exists, prepend to price",
+        "Wrap current price in <ins class='property-current-price'>",
+        "If 'old_price' exists, add <del class='property-old-price'> with same formatting",
+        "If 'currency_suffix' exists, append after the closing tags"
+      ]
+    },
+    {
+      "objective": "Replace or relocate existing status and type badges",
+      "action": "Remove or suppress the <div class='property-meta-badges'> if it's duplicating the new status rendering"
+    },
+    {
+      "objective": "Avoid logic changes",
+      "action": "Only modify template output — do not modify how the data is fetched in PropertyData"
+    }
+  ]
+}

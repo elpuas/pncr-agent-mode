@@ -39,6 +39,7 @@ class PropertyData {
 		return [
 			// Existing fields (backward compatibility)
 			'price'        => self::get_formatted_price( $property_id ),
+			'old_price'    => self::get_formatted_old_price( $property_id ),
 			'size'         => self::get_formatted_size( $property_id ),
 			'size_unit'    => self::get_size_unit( $property_id ),
 			'bedrooms'     => self::get_meta_value( $property_id, 'REAL_HOMES_property_bedrooms' ),
@@ -92,6 +93,29 @@ class PropertyData {
 		}
 
 		return $price; // Return original if not numeric.
+	}
+
+	/**
+	 * Get and format old property price.
+	 *
+	 * @param int $property_id The property post ID.
+	 * @return string Formatted old price or empty string.
+	 */
+	private static function get_formatted_old_price( $property_id ) {
+		$old_price = self::get_meta_value( $property_id, 'REAL_HOMES_property_old_price' );
+
+		if ( empty( $old_price ) ) {
+			return '';
+		}
+
+		// Remove any non-numeric characters except decimal points.
+		$numeric_price = preg_replace( '/[^\d.]/', '', $old_price );
+
+		if ( is_numeric( $numeric_price ) ) {
+			return number_format( (float) $numeric_price );
+		}
+
+		return $old_price; // Return original if not numeric.
 	}
 
 	/**
@@ -461,12 +485,7 @@ class PropertyData {
 	 * @return string Currency prefix symbol or empty string.
 	 */
 	private static function get_currency_prefix( $property_id ) {
-		$symbol = self::get_meta_value( $property_id, 'REAL_HOMES_currency_symbol' );
-		if ( empty( $symbol ) ) {
-			// Fallback to global option
-			$symbol = self::get_meta_value( $property_id, 'REAL_HOMES_currency' );
-		}
-		return $symbol;
+		return self::get_meta_value( $property_id, 'REAL_HOMES_property_price_prefix' );
 	}
 
 	/**
@@ -476,7 +495,7 @@ class PropertyData {
 	 * @return string Currency suffix or empty string.
 	 */
 	private static function get_currency_suffix( $property_id ) {
-		return self::get_meta_value( $property_id, 'REAL_HOMES_currency_suffix' );
+		return self::get_meta_value( $property_id, 'REAL_HOMES_property_price_postfix' );
 	}
 
 	/**
