@@ -52,25 +52,38 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 <body class="agent-mode">
 	<div class="agent-mode-container">
 		<header class="agent-mode-header">
-			<h1 class="property-title"><?php echo esc_html( get_the_title() ); ?></h1>
-			<?php
-			/**
-			 * Task-17: Existing status badges suppressed to avoid duplication.
-			 * Status is now displayed in the RealHomes-style price section below.
-			 */
-			?>
-			<?php /* Commented out to avoid duplication with new RealHomes-style status in price section
-			<?php if ( ! empty( $property_data['status'] ) || ! empty( $property_data['type'] ) ) : ?>
-				<div class="property-meta-badges">
+			<div>
+				<?php if ( ! empty( $property_data['breadcrumbs'] ) && is_array( $property_data['breadcrumbs'] ) ) : ?>
+					<p class="status"><?php echo esc_html( implode( ' › ', $property_data['breadcrumbs'] ) ); ?></p>
+				<?php endif; ?>
+				<h1 class="property-title"><?php echo esc_html( get_the_title() ); ?></h1>
+			</div>
+			<?php if ( ! empty( $property_data['price'] ) || ! empty( $property_data['status'] ) ) : ?>
+				<div class="property_price">
 					<?php if ( ! empty( $property_data['status'] ) ) : ?>
-						<span class="property-status"><?php echo esc_html( $property_data['status'] ); ?></span>
+						<p class="status"><?php echo esc_html( $property_data['status'] ); ?></p>
 					<?php endif; ?>
-					<?php if ( ! empty( $property_data['type'] ) ) : ?>
-						<span class="property-type"><?php echo esc_html( $property_data['type'] ); ?></span>
+
+					<?php if ( ! empty( $property_data['price'] ) ) : ?>
+						<p class="price">
+							<span class="property-price-wrapper">
+								<?php if ( ! empty( $property_data['currency_prefix'] ) ) : ?>
+									<?php echo esc_html( $property_data['currency_prefix'] ); ?>
+								<?php endif; ?>
+								<ins class="property-current-price">$<?php echo esc_html( $property_data['price'] ); ?></ins>
+								<?php if ( ! empty( $property_data['old_price'] ) ) : ?>
+									<del class="property-old-price">
+										$<?php echo esc_html( $property_data['old_price'] ); ?>
+									</del>
+								<?php endif; ?>
+								<?php if ( ! empty( $property_data['currency_suffix'] ) ) : ?>
+									<?php echo esc_html( ' ' . $property_data['currency_suffix'] ); ?>
+								<?php endif; ?>
+							</span>
+						</p>
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
-			*/ ?>
 		</header>
 
 		<main class="agent-mode-content">
@@ -85,7 +98,7 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 					alt="<?php echo esc_attr( get_the_title() ); ?>"
 					class="featured-image">
 				<?php endif; ?>
-			</div>
+			</div><!-- Featured Image -->
 
 			<div class="property-details">
 				<?php if ( ! empty( $property_data['gallery_urls'] ) && is_array( $property_data['gallery_urls'] ) ) : ?>
@@ -104,7 +117,7 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 								<?php endif; ?>
 							<?php endforeach; ?>
 						</div>
-					</div>
+					</div><!-- Property Gallery -->
 				<?php elseif ( ! empty( $property_data['gallery_ids'] ) && is_array( $property_data['gallery_ids'] ) ) : ?>
 					<!-- Fallback to gallery_ids for backward compatibility -->
 					<div class="property-gallery">
@@ -127,47 +140,18 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 								<?php endif; ?>
 							<?php endforeach; ?>
 						</div>
-					</div>
+					</div><!-- Property Gallery -->
 				<?php endif; ?>
-					<div class="property-info-meta">
-
-					<!-- Task-17: RealHomes-style price section -->
-					<?php if ( ! empty( $property_data['price'] ) || ! empty( $property_data['status'] ) ) : ?>
-						<div class="rh_page__property_price">
-							<?php if ( ! empty( $property_data['status'] ) ) : ?>
-								<p class="status"><?php echo esc_html( $property_data['status'] ); ?></p>
-							<?php endif; ?>
-
-							<?php if ( ! empty( $property_data['price'] ) ) : ?>
-								<p class="price">
-									<span class="property-price-wrapper">
-										<?php if ( ! empty( $property_data['currency_prefix'] ) ) : ?>
-											<?php echo esc_html( $property_data['currency_prefix'] ); ?>
-										<?php endif; ?>
-										<ins class="property-current-price">$<?php echo esc_html( $property_data['price'] ); ?></ins>
-										<?php if ( ! empty( $property_data['old_price'] ) ) : ?>
-											<del class="property-old-price">
-												$<?php echo esc_html( $property_data['old_price'] ); ?>
-											</del>
-										<?php endif; ?>
-										<?php if ( ! empty( $property_data['currency_suffix'] ) ) : ?>
-											<?php echo esc_html( ' ' . $property_data['currency_suffix'] ); ?>
-										<?php endif; ?>
-									</span>
-								</p>
-							<?php endif; ?>
-						</div>
-					<?php endif; ?>
-
-					<?php if ( ! empty( $property_data['ref_id'] ) ) : ?>
-						<div class="property-ref">
-							<span class="ref-label"><?php esc_html_e( 'Property ID:', 'pbcr-agent-mode' ); ?></span>
-							<span class="ref-value"><?php echo esc_html( $property_data['ref_id'] ); ?></span>
-						</div>
-					<?php endif; ?>
-				</div>
 				<?php if ( ! empty( $features ) ) : ?>
 					<div class="property-features">
+						<div class="property-info-meta">
+							<?php if ( ! empty( $property_data['ref_id'] ) ) : ?>
+								<div class="property-ref">
+									<span class="ref-label"><?php esc_html_e( 'Property ID:', 'pbcr-agent-mode' ); ?></span>
+									<span class="ref-value"><?php echo esc_html( $property_data['ref_id'] ); ?></span>
+								</div>
+							<?php endif; ?>
+						</div><!-- Property Info Meta -->
 						<h3 class="features-title"><?php esc_html_e( 'Property Features', 'pbcr-agent-mode' ); ?></h3>
 						<div class="features-grid">
 							<?php foreach ( $features as $feature ) : ?>
@@ -177,96 +161,69 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 									<span class="feature-label"><?php echo esc_html( $feature['label'] ); ?></span>
 								</div>
 							<?php endforeach; ?>
+							<?php if ( ! empty( $property_data['size'] ) ) : ?>
+								<div class="feature-item">
+									<span class="feature-icon feature-icon-size"></span>
+									<span class="feature-value"><?php echo esc_html( $property_data['size'] ); ?> m²</span>
+									<span class="feature-label"><?php esc_html_e( 'Size', 'pbcr-agent-mode' ); ?></span>
+								</div>
+							<?php endif; ?>
+							<?php if ( ! empty( $property_data['land_size'] ) ) : ?>
+								<div class="feature-item">
+									<span class="feature-icon feature-icon-land"></span>
+									<span class="feature-value">
+										<?php echo esc_html( $property_data['land_size'] ); ?>
+										<?php if ( ! empty( $property_data['land_unit'] ) ) : ?>
+											<?php echo esc_html( ' ' . $property_data['land_unit'] ); ?>
+										<?php else : ?>
+											m²
+										<?php endif; ?>
+									</span>
+									<span class="feature-label"><?php esc_html_e( 'Land', 'pbcr-agent-mode' ); ?></span>
+								</div>
+							<?php endif; ?>
 						</div>
-					</div>
+					</div><!-- Property Features -->
 				<?php endif; ?>
 
-				<?php if ( ! empty( $property_data['features'] ) && is_array( $property_data['features'] ) ) : ?>
-					<div class="property-extra-features">
-						<h3 class="extra-features-title"><?php esc_html_e( 'Additional Features', 'pbcr-agent-mode' ); ?></h3>
-						<ul class="extra-features-list">
-							<?php foreach ( $property_data['features'] as $feature_name ) : ?>
-								<li class="extra-feature-item">
-									<span class="feature-bullet">•</span>
-									<span class="feature-text"><?php echo esc_html( $feature_name ); ?></span>
-								</li>
-							<?php endforeach; ?>
-						</ul>
-					</div>
-				<?php endif; ?>
-
-					<div class="features-grid-wrapper">
-					<?php if ( ! empty( $property_data['size'] ) ) : ?>
-						<div class="property-size">
-							<span class="size-label"><?php esc_html_e( 'Size:', 'pbcr-agent-mode' ); ?></span>
-							<span class="size-value"><?php echo esc_html( $property_data['size'] ); ?> m²</span>
-						</div>
-					<?php endif; ?>
-
-					<?php if ( ! empty( $property_data['address'] ) ) : ?>
-						<div class="property-location">
-							<span class="location-icon">📍</span>
-							<span class="location-value"><?php echo esc_html( $property_data['address'] ); ?></span>
-						</div>
-					<?php else : ?>
-						<?php
-						// Fallback to location taxonomy.
-						$locations = get_the_terms( get_the_ID(), 'property-city' );
-						if ( ! empty( $locations ) && ! is_wp_error( $locations ) ) :
-							$location_names = wp_list_pluck( $locations, 'name' );
-							?>
-							<div class="property-location">
-								<span class="location-icon">📍</span>
-								<span class="location-value"><?php echo esc_html( implode( ', ', $location_names ) ); ?></span>
-							</div>
-						<?php endif; ?>
-					<?php endif; ?>
-
-					<?php if ( ! empty( $property_data['breadcrumbs'] ) && is_array( $property_data['breadcrumbs'] ) ) : ?>
-						<div class="property-breadcrumbs">
-							<span class="breadcrumbs-label"><?php esc_html_e( 'Ubicación:', 'pbcr-agent-mode' ); ?></span>
-							<span class="breadcrumbs-value"><?php echo esc_html( implode( ' › ', $property_data['breadcrumbs'] ) ); ?></span>
-						</div>
-					<?php endif; ?>
-
-					<?php if ( ! empty( $property_data['land_size'] ) ) : ?>
-						<div class="property-land-size">
-							<span class="land-size-label"><?php esc_html_e( 'Tamaño de terreno:', 'pbcr-agent-mode' ); ?></span>
-							<span class="land-size-value">
-								<?php echo esc_html( $property_data['land_size'] ); ?>
-								<?php if ( ! empty( $property_data['land_unit'] ) ) : ?>
-									<?php echo esc_html( ' ' . $property_data['land_unit'] ); ?>
-								<?php else : ?>
-									m²
-								<?php endif; ?>
-							</span>
-						</div>
-					<?php endif; ?>
-					</div> <!-- .features-grid-wrapper -->
-
-				<?php if ( ! empty( $property_data['in_slider'] ) && '1' === $property_data['in_slider'] ) : ?>
-					<div class="property-slider-badge">
-						<span class="slider-icon">🎞️</span>
-						<span class="slider-text"><?php esc_html_e( 'Featured in Slider', 'pbcr-agent-mode' ); ?></span>
-					</div>
-				<?php endif; ?>
-
+				<!-- Property Description -->
 				<?php if ( ! empty( $property_data['description'] ) ) : ?>
-					<div class="property-description">
-						<h3 class="description-title"><?php esc_html_e( 'Description', 'pbcr-agent-mode' ); ?></h3>
-						<div class="description-content">
-							<?php echo wp_kses_post( $property_data['description'] ); ?>
+						<div class="property-description">
+							<h3 class="description-title"><?php esc_html_e( 'Description', 'pbcr-agent-mode' ); ?></h3>
+							<?php if ( ! empty( $property_data['address'] ) ) : ?>
+								<p class="location-value"><?php echo esc_html( $property_data['address'] ); ?></p>
+							<?php endif; ?>
+							<div class="description-content">
+								<?php echo wp_kses_post( $property_data['description'] ); ?>
+							</div>
 						</div>
-					</div>
 				<?php elseif ( get_the_content() ) : ?>
-					<!-- Fallback to get_the_content() for backward compatibility -->
-					<div class="property-description">
-						<h3 class="description-title"><?php esc_html_e( 'Description', 'pbcr-agent-mode' ); ?></h3>
-						<div class="description-content">
-							<?php echo wp_kses_post( strip_shortcodes( get_the_content() ) ); ?>
+						<!-- Fallback to get_the_content() for backward compatibility -->
+						<div class="property-description">
+							<h3 class="description-title"><?php esc_html_e( 'Description', 'pbcr-agent-mode' ); ?></h3>
+							<?php if ( ! empty( $property_data['address'] ) ) : ?>
+								<p class="location-value"><?php echo esc_html( $property_data['address'] ); ?></p>
+							<?php endif; ?>
+							<div class="description-content">
+								<?php echo wp_kses_post( strip_shortcodes( get_the_content() ) ); ?>
+							</div>
 						</div>
-					</div>
 				<?php endif; ?>
+
+					<!-- Additional Features Section -->
+					<?php if ( ! empty( $property_data['features'] ) && is_array( $property_data['features'] ) ) : ?>
+						<div class="property-extra-features">
+							<h3 class="extra-features-title"><?php esc_html_e( 'Characteristics', 'pbcr-agent-mode' ); ?></h3>
+							<ul class="extra-features-list">
+								<?php foreach ( $property_data['features'] as $feature_name ) : ?>
+									<li class="extra-feature-item">
+										<span class="feature-bullet">•</span>
+										<span class="feature-text"><?php echo esc_html( $feature_name ); ?></span>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+						</div>
+					<?php endif; ?>
 
 				<?php
 				// Direct Additional Details Implementation - Try different data access methods
@@ -325,6 +282,6 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features( $proper
 			</div>
 		</main>
 	</div>
-	<?php wp_footer(); ?>
+	<?php // wp_footer(); ?>
 </body>
 </html>

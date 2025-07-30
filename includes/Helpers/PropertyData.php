@@ -149,7 +149,7 @@ class PropertyData {
 	 */
 	private static function get_size_unit( $property_id ) {
 		$unit = self::get_meta_value( $property_id, 'REAL_HOMES_property_size_postfix' );
-		return ! empty( $unit ) ? $unit : 'Sq Ft';
+		return ! empty( $unit ) ? $unit : 'm²';
 	}
 
 	/**
