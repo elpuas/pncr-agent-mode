@@ -1,0 +1,31 @@
+{
+  "task": "Refactor gallery display to Swiper slider with synced thumbnails",
+  "context": "PBCR Agent Mode template",
+  "objective": "Remove the featured image section entirely and replace the gallery grid with a Swiper slider using gallery_urls as the sole image source. Maintain the clean, modern look of the current grid but enhance it with interactive slider navigation and thumbnails.",
+  "instructions": {
+    "remove": [
+      "The entire <div class='property-image'> block that displays the featured image"
+    ],
+    "replace_gallery": {
+      "target": "property-gallery",
+      "library": "Swiper.js",
+      "structure": "Create two synchronized sliders: main image slider and thumbnail slider below",
+      "source": "Use only $property_data['gallery_urls']",
+      "fallback": "No fallback to gallery_ids needed; this block is meant for enhanced modern display only"
+    },
+    "requirements": {
+      "1": "Swiper styles and JS must be enqueued in agent-mode.php",
+      "2": "Slider must be keyboard accessible and use semantic <img> with alt",
+      "3": "Main image slider shows large image with no zoom or modal for now",
+      "4": "Thumbnails below act as navigation; highlight active slide",
+      "5": "Mobile responsive: use vertical scrolling thumbs below slider if needed",
+      "6": "CSS must be scoped with .agent-mode or similar custom classes (no RealHomes)"
+    },
+    "output": {
+      "php_template": "Replace .gallery-grid with a Swiper-friendly structure using gallery_urls",
+      "js_init": "Add Swiper slider init script to agent-mode.js or inline if isolated",
+      "css": "Minimal CSS for layout and thumbnail styling, scoped to avoid theme conflicts"
+    },
+    "notes": "No branding or dependency. Keep markup clean and portable. No Limit to images, adjust Layout accordingly."
+  }
+}

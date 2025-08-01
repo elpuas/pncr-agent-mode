@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PBCR Agent Mode - JavaScript Debug Helper</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .warning { background: #fff3cd; border-color: #ffeaa7; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+        code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; }
+        .url-example { font-family: monospace; background: #f8f9fa; padding: 10px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 PBCR Agent Mode - JavaScript Debug Helper</h1>
+
+    <div class="debug-section warning">
+        <h2>⚠️ Quick Fix for Script Not Working</h2>
+        <p><strong>Most likely issue:</strong> You're not viewing the page in "agent mode".</p>
+        <p><strong>Solution:</strong> Add <code>?agent_view=1</code> to your property URL</p>
+        <div class="url-example">
+            Example: <br>
+            ❌ http://yoursite.com/property/sample-property/<br>
+            ✅ http://yoursite.com/property/sample-property/<strong>?agent_view=1</strong>
+        </div>
+    </div>
+
+    <div class="debug-section">
+        <h2>🔧 Debugging Steps</h2>
+        <ol>
+            <li><strong>Visit a Property Page</strong> - Go to any property post</li>
+            <li><strong>Add Agent View Parameter</strong> - Add <code>?agent_view=1</code> to the URL</li>
+            <li><strong>Open DevTools</strong> - Press F12 or right-click → Inspect</li>
+            <li><strong>Check Console Tab</strong> - Look for debug messages</li>
+            <li><strong>Look for these messages:</strong>
+                <ul>
+                    <li>🔄 PBCR Agent Mode: Script file loaded</li>
+                    <li>🔄 PBCR Agent Mode: DOM loaded, initializing...</li>
+                    <li>✅ Swiper library available</li>
+                    <li>✅ PBCR Agent Mode Swiper gallery initialized successfully</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <div class="debug-section">
+        <h2>❌ Common Error Messages and Solutions</h2>
+
+        <h3>"❌ Swiper library not loaded"</h3>
+        <p><strong>Cause:</strong> Swiper CDN not loading</p>
+        <p><strong>Solution:</strong> Check network connection or CDN availability</p>
+
+        <h3>"❌ Swiper gallery elements not found"</h3>
+        <p><strong>Cause:</strong> Not in agent mode OR no gallery images</p>
+        <p><strong>Solutions:</strong></p>
+        <ul>
+            <li>Ensure URL has <code>?agent_view=1</code></li>
+            <li>Check that property has gallery images</li>
+            <li>Verify template is loading correctly</li>
+        </ul>
+    </div>
+
+    <div class="debug-section">
+        <h2>🎯 What Should Happen</h2>
+        <p>When working correctly, you should see:</p>
+        <ol>
+            <li>A large main image slider</li>
+            <li>Thumbnail navigation below</li>
+            <li>Clicking thumbnails changes main image</li>
+            <li>Navigation arrows on main slider</li>
+            <li>Console message confirming initialization</li>
+        </ol>
+    </div>
+
+    <div class="debug-section success">
+        <h2>✅ Still Having Issues?</h2>
+        <p>If the script still isn't working after adding <code>?agent_view=1</code>:</p>
+        <ol>
+            <li>Check that you're on a <strong>property</strong> post type page</li>
+            <li>Verify the property has gallery images in the gallery_urls field</li>
+            <li>Check browser console for any JavaScript errors</li>
+            <li>Verify Swiper CDN is accessible</li>
+        </ol>
+    </div>
+
+    <script>
+        // Simple test to show this debug page is working
+        console.log('🔍 Debug helper page loaded - This confirms JavaScript is working in your browser');
+    </script>
+</body>
+</html>
