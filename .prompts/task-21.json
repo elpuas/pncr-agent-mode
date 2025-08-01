@@ -1,0 +1,36 @@
+{
+  "task": "Cleanup for Final Plugin Release",
+  "goal": "Prepare the plugin for production by removing all development-only artifacts, tests, and temporary files created during the enhancement process. Ensure the plugin is clean, lightweight, and contains only necessary production code.",
+  "instructions": [
+    {
+      "action": "Remove development test files",
+      "details": "Delete all PHP files inside the /tests/ directory, including test-task-14-enhancements.php and similar. These were used for local validation only and are not needed in production."
+    },
+    {
+      "action": "Remove unused REST API registration code",
+      "condition": "Only if no templates or features consume the custom endpoint.",
+      "details": "The plugin uses internal data access (`PropertyData::get_property_data()`) and does not expose or use the custom REST endpoint in the frontend or admin UI. Confirm and remove endpoint code if it's unused."
+    },
+    {
+      "action": "Check for redundant helper methods",
+      "details": "Scan the PropertyData class and identify duplicated or unused private methods (e.g., image handling logic). If `gallery_urls` or `featured_url` are handled by one clean method, remove the older or fallback logic."
+    },
+    {
+      "action": "Remove debug logs or internal dev-only comments",
+      "details": "Delete any `error_log()` calls, `@todo`, or `@debug` comments left behind from testing phases. Replace with clean docblocks if necessary."
+    },
+    {
+      "action": "Preserve only the final set of fields",
+      "details": "Keep the 28 production fields returned by `get_property_data()`. Remove any extra meta fields or legacy compatibility code if not used by current templates."
+    },
+    {
+      "action": "Keep Swiper-based gallery intact",
+      "details": "Preserve the final working HTML, CSS, and JS for the Swiper gallery with thumbnail navigation. This is confirmed as production-ready."
+    },
+    {
+      "action": "Do not remove or rename any core classes or functions",
+      "details": "Maintain backward compatibility for existing consumers of PropertyData or agent templates."
+    }
+  ],
+  "output": "Cleaned-up plugin directory, with only production-ready code, classes, assets, and templates. All unused files, test scripts, and dev logs must be removed."
+}

@@ -168,8 +168,6 @@ class PropertyData {
 
 		// Check if meta exists
 		if ( empty( $gallery_meta ) ) {
-			// Log debug info if gallery is empty
-			error_log( "PBCR Agent Mode: Empty gallery meta for property ID {$property_id}" );
 			return [];
 		}
 
@@ -193,7 +191,6 @@ class PropertyData {
 
 		// Ensure we have a valid array
 		if ( ! is_array( $gallery_ids ) ) {
-			error_log( "PBCR Agent Mode: Gallery meta is not an array for property ID {$property_id}, type: " . gettype( $gallery_ids ) );
 			return [];
 		}
 
@@ -204,9 +201,6 @@ class PropertyData {
 
 		// Convert to integers
 		$valid_ids = array_map( 'intval', $valid_ids );
-
-		// Log results for debugging
-		error_log( "PBCR Agent Mode: Found " . count( $valid_ids ) . " gallery images for property ID {$property_id}" );
 
 		return $valid_ids;
 	}
