@@ -79,7 +79,13 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 								<ins class="property-current-price">$<?php echo esc_html($property_data['price']); ?></ins>
 								<?php if (! empty($property_data['old_price'])) : ?>
 									<del class="property-old-price">
-										$<?php echo esc_html($property_data['old_price']); ?>
+								<?php
+									$currency_prefix = !empty($property_data['currency_prefix']) ? $property_data['currency_prefix'] : '$';
+								?>
+								<ins class="property-current-price"><?php echo esc_html($currency_prefix . $property_data['price']); ?></ins>
+								<?php if (! empty($property_data['old_price'])) : ?>
+									<del class="property-old-price">
+										<?php echo esc_html($currency_prefix . $property_data['old_price']); ?>
 									</del>
 								<?php endif; ?>
 								<?php if (! empty($property_data['currency_suffix'])) : ?>
