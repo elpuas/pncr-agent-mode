@@ -1,0 +1,47 @@
+{
+  "task": "Add missing currency prefix and suffix to PropertyData",
+  "context": {
+    "class": "PBCRAgentMode\\Helpers\\PropertyData",
+    "method": "get_property_data",
+    "meta_keys": [
+      "REAL_HOMES_property_price_prefix",
+      "REAL_HOMES_property_price_postfix"
+    ]
+  },
+  "instructions": [
+    {
+      "objective": "Ensure that the currency prefix and suffix are extracted from the meta values",
+      "action": "Create two new private static methods:",
+      "methods": [
+        {
+          "name": "get_currency_prefix",
+          "meta_key": "REAL_HOMES_property_price_prefix",
+          "return_type": "string"
+        },
+        {
+          "name": "get_currency_suffix",
+          "meta_key": "REAL_HOMES_property_price_postfix",
+          "return_type": "string"
+        }
+      ]
+    },
+    {
+      "objective": "Update return array in get_property_data()",
+      "action": "Add the following keys:",
+      "fields": {
+        "currency_prefix": "self::get_currency_prefix( $property_id )",
+        "currency_suffix": "self::get_currency_suffix( $property_id )"
+      }
+    },
+    {
+      "objective": "Ensure values are returned as plain strings, even if empty",
+      "action": "Use fallback to empty string if meta not set"
+    },
+    {
+      "objective": "Do not rename or alter any existing keys in the return array"
+    },
+    {
+      "objective": "Do not affect other currency-related fields like REAL_HOMES_currency_symbol"
+    }
+  ]
+}

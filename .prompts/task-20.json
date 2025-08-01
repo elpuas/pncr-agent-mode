@@ -1,0 +1,27 @@
+{
+  "task": "Implement synced Swiper gallery in agent-mode template",
+  "objective": "Replace the old gallery grid with a Swiper slider that includes a synced thumbnail navigation slider, just like the demo in https://codesandbox.io/p/sandbox/6j86wp?file=%2Findex.html",
+  "context": "PBCR Agent Mode",
+  "instructions": {
+    "1": "Enqueue Swiper.js and Swiper.css from CDN in the plugin or template head",
+    "2": "Create two Swiper containers in the agent-mode template",
+    "3": "First Swiper = main slider with large images",
+    "4": "Second Swiper = thumbnail navigation below, synced with main slider",
+    "5": "Use only $property_data['gallery_urls'] as source, no fallbacks to gallery_ids",
+    "6": "Each image must have proper alt text using get_the_title() or post title + index",
+    "7": "All CSS must be scoped under .agent-mode to avoid conflicts",
+    "8": "Swiper should be initialized in agent-mode.js or inline in the footer for now",
+    "9": "Ensure mobile responsive: thumbnails stack or slide horizontally",
+    "10": "Add lazy loading for images except the first one"
+  },
+  "output": {
+    "php": "Update the agent template to render two Swiper wrappers: .swiper-main and .swiper-thumbs using gallery_urls",
+    "js": "Add Swiper initialization script like in the CodeSandbox, using new Swiper(...)",
+    "css": "Add scoped styles to make the sliders look clean, modern and avoid RealHomes theme conflicts"
+  },
+  "dependencies": {
+    "swiper_css": "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css",
+    "swiper_js": "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+  },
+  "notes": "The output must replicate the CodeSandbox demo exactly, but integrated into the PBCR Agent Mode HTML structure. No placeholder images or fake slides, use real gallery_urls."
+}
