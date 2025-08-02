@@ -65,37 +65,37 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 				<h1 class="property-title"><?php echo esc_html(get_the_title()); ?></h1>
 			</div>
 			<?php if (! empty($property_data['price']) || ! empty($property_data['status'])) : ?>
-				<div class="property_price">
-					<?php if (! empty($property_data['status'])) : ?>
-						<p class="status"><?php echo esc_html($property_data['status']); ?></p>
-					<?php endif; ?>
+	<div class="property_price">
+		<?php if (! empty($property_data['status'])) : ?>
+			<p class="status"><?php echo esc_html($property_data['status']); ?></p>
+		<?php endif; ?>
 
-					<?php if (! empty($property_data['price'])) : ?>
-						<p class="price">
-							<span class="property-price-wrapper">
-								<?php if (! empty($property_data['currency_prefix'])) : ?>
-									<?php echo esc_html($property_data['currency_prefix']); ?>
-								<?php endif; ?>
-								<ins class="property-current-price">$<?php echo esc_html($property_data['price']); ?></ins>
-								<?php if (! empty($property_data['old_price'])) : ?>
-									<del class="property-old-price">
+		<?php if (! empty($property_data['price'])) : ?>
+					<p class="price">
+						<span class="property-price-wrapper">
+							<ins class="property-current-price">
 								<?php
-									$currency_prefix = !empty($property_data['currency_prefix']) ? $property_data['currency_prefix'] : '$';
-								?>
-								<ins class="property-current-price"><?php echo esc_html($currency_prefix . $property_data['price']); ?></ins>
-								<?php if (! empty($property_data['old_price'])) : ?>
-									<del class="property-old-price">
-										<?php echo esc_html($currency_prefix . $property_data['old_price']); ?>
-									</del>
-								<?php endif; ?>
-								<?php if (! empty($property_data['currency_suffix'])) : ?>
-									<?php echo esc_html(' ' . $property_data['currency_suffix']); ?>
-								<?php endif; ?>
-							</span>
-						</p>
-					<?php endif; ?>
-				</div>
-			<?php endif; ?>
+								$currency_prefix = ! empty($property_data['currency_prefix']) ? $property_data['currency_prefix'] : '$';
+								echo esc_html($currency_prefix .  $property_data['price']); ?>
+							</ins>
+
+							<?php if (! empty($property_data['old_price'])) : ?>
+								<del class="property-old-price">
+									<?php
+									$currency_prefix = ! empty($property_data['currency_prefix']) ? $property_data['currency_prefix'] : '$';
+									echo esc_html($currency_prefix . $property_data['old_price']);
+									?>
+								</del>
+							<?php endif; ?>
+
+							<?php if (! empty($property_data['currency_suffix'])) : ?>
+								<?php echo esc_html(' ' . $property_data['currency_suffix']); ?>
+							<?php endif; ?>
+						</span>
+					</p>
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
 		</header>
 
 		<main class="agent-mode-content">
@@ -190,9 +190,6 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 				<?php if (! empty($property_data['description'])) : ?>
 					<div class="property-description">
 						<h3 class="description-title"><?php esc_html_e('Description', 'pbcr-agent-mode'); ?></h3>
-						<?php if (! empty($property_data['address'])) : ?>
-							<p class="location-value"><?php echo esc_html($property_data['address']); ?></p>
-						<?php endif; ?>
 						<div class="description-content">
 							<?php echo wp_kses_post($property_data['description']); ?>
 						</div>
@@ -201,9 +198,6 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 					<!-- Fallback to get_the_content() for backward compatibility -->
 					<div class="property-description">
 						<h3 class="description-title"><?php esc_html_e('Description', 'pbcr-agent-mode'); ?></h3>
-						<?php if (! empty($property_data['address'])) : ?>
-							<p class="location-value"><?php echo esc_html($property_data['address']); ?></p>
-						<?php endif; ?>
 						<div class="description-content">
 							<?php echo wp_kses_post(strip_shortcodes(get_the_content())); ?>
 						</div>
@@ -213,7 +207,7 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 				<!-- Additional Features Section -->
 				<?php if (! empty($property_data['features']) && is_array($property_data['features'])) : ?>
 					<div class="property-extra-features">
-						<h3 class="extra-features-title"><?php esc_html_e('Characteristics', 'pbcr-agent-mode'); ?></h3>
+						<h3 class="extra-features-title"><?php esc_html_e('Caracteristicas', 'pbcr-agent-mode'); ?></h3>
 						<ul class="extra-features-list">
 							<?php foreach ($property_data['features'] as $feature_name) : ?>
 								<li class="extra-feature-item">

@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         spaceBetween: 10,
         slidesPerView: 4,
         freeMode: true,
+		loop: true,
         watchSlidesProgress: true,
         direction: 'horizontal',
         breakpoints: {
@@ -55,6 +56,11 @@ document.addEventListener('DOMContentLoaded', function() {
         spaceBetween: 10,
         slidesPerView: 1,
         // Connect with thumbnail slider (key feature from CodeSandbox demo)
+		loop: true,
+		autoplay: {
+			delay: 3000,
+			disableOnInteraction: false,
+		},
         thumbs: {
             swiper: swiperThumbs,
         },
