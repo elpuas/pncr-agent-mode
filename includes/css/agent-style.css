@@ -54,14 +54,16 @@ html:has(.agent-mode) {
 		padding-top: 3rem;
 		display: flex;
 		flex-direction: column;
-		align-items: flex-end;
+		align-items: flex-start;
 		justify-content: space-between;
 		max-width: 1000px;
 		margin: 0 auto 2rem;
 
 		& .property_price {
-			border-left: 1px solid lightgray;
-			padding-left: 1rem;
+			@container main-content (min-width: 768px) {
+				border-left: 1px solid lightgray;
+				padding-left: 1rem;
+			}
 		}
 
 		/* Property title with responsive typography */
@@ -134,7 +136,6 @@ html:has(.agent-mode) {
 			& .property-price {
 				font-size: 1.5rem;
 				font-weight: 600;
-				color: #2563eb;
 				display: flex;
 				align-items: baseline;
 				gap: 0.5rem;
