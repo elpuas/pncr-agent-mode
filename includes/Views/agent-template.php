@@ -125,6 +125,8 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 							</div>
 							<!-- Thumbnail Slider -->
 							<div class="swiper-thumbs swiper">
+								<div class="swiper-button-prev thumbs-prev"></div>
+								<div class="swiper-button-next thumbs-next"></div>
 								<div class="swiper-wrapper">
 									<?php foreach ($property_data['gallery_urls'] as $index => $image_url) : ?>
 										<?php if ($image_url) : ?>
