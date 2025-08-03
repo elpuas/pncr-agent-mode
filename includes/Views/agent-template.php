@@ -167,7 +167,7 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 								<div class="feature-item">
 									<span class="feature-icon feature-icon-size"></span>
 									<span class="feature-value"><?php echo esc_html($property_data['size']); ?> m²</span>
-									<span class="feature-label"><?php esc_html_e('Size', 'pbcr-agent-mode'); ?></span>
+									<span class="feature-label"><?php esc_html_e('Construcción', 'pbcr-agent-mode'); ?></span>
 								</div>
 							<?php endif; ?>
 							<?php if (! empty($property_data['land_size'])) : ?>
@@ -181,7 +181,7 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 											m²
 										<?php endif; ?>
 									</span>
-									<span class="feature-label"><?php esc_html_e('Land', 'pbcr-agent-mode'); ?></span>
+									<span class="feature-label"><?php esc_html_e('Terreno', 'pbcr-agent-mode'); ?></span>
 								</div>
 							<?php endif; ?>
 						</div>
@@ -281,6 +281,14 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 	<!-- Direct Swiper JS inclusion -->
 	<script src="<?php echo PBCR_AGENT_MODE_PLUGIN_URL . 'includes/js/swiper-bundle.min.js'; ?>?v=<?php echo PBCR_AGENT_MODE_VERSION; ?>"></script>
 	<script src="<?php echo PBCR_AGENT_MODE_PLUGIN_URL . 'includes/js/agent-mode.js'; ?>?v=<?php echo PBCR_AGENT_MODE_VERSION; ?>"></script>
+	<script>
+		(function () {
+			if (location.search.includes('agent_view=1')) {
+				const slug = 'mc-' + Math.random().toString(36).slice(2, 6)
+				history.replaceState({}, '', '/' + slug)
+			}
+		})()
+	</script>
 </body>
 
 </html>
