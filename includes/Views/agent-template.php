@@ -282,12 +282,12 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 	<script src="<?php echo PBCR_AGENT_MODE_PLUGIN_URL . 'includes/js/swiper-bundle.min.js'; ?>?v=<?php echo PBCR_AGENT_MODE_VERSION; ?>"></script>
 	<script src="<?php echo PBCR_AGENT_MODE_PLUGIN_URL . 'includes/js/agent-mode.js'; ?>?v=<?php echo PBCR_AGENT_MODE_VERSION; ?>"></script>
 	<script>
-		(function () {
-			if (location.search.includes('agent_view=1')) {
-				const slug = 'mc-' + Math.random().toString(36).slice(2, 6)
-				history.replaceState({}, '', '/' + slug)
-			}
-		})()
+		// (function () {
+		// 	if (location.search.includes('agent_view=1')) {
+		// 		const slug = 'mc-' + Math.random().toString(36).slice(2, 6)
+		// 		history.replaceState({}, '', '/' + slug)
+		// 	}
+		// })()
 	</script>
 </body>
 
