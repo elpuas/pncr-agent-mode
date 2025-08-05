@@ -59,10 +59,18 @@ html:has(.agent-mode) {
 		max-width: 1000px;
 		margin: 0 auto 2rem;
 
+
 		& .property_price {
+			border-top: 1px solid lightgray;
+			padding-top: 1rem;
+			margin-top: 1rem;
+
 			@container main-content (min-width: 768px) {
 				border-left: 1px solid lightgray;
 				padding-left: 1rem;
+				border-top: none;
+				padding-top: 0;
+				margin-top: 0;
 			}
 		}
 
@@ -80,12 +88,18 @@ html:has(.agent-mode) {
 			font-weight: 500;
 		}
 
+		& .status-breadcrumbs {
+			@container main-content (max-width: 768px) {
+				font-size: 1.125rem;
+			}
+		}
+
 		& .price {
 			margin-bottom: -4px;
 		}
 
 		& .property-price-wrapper {
-			font-size: clamp(1.5rem, 3vw, 2.5rem);
+			font-size: 2.5rem;
 			font-weight: 400;
 		}
 	}
@@ -155,6 +169,7 @@ html:has(.agent-mode) {
 			/* Property Reference ID */
 			& .property-ref {
 				font-size: 1.75rem;
+				font-weight: 500;
 				color: #6b7280;
 				display: flex;
 				align-items: center;
@@ -165,7 +180,6 @@ html:has(.agent-mode) {
 				}
 
 				& .ref-value {
-					font-family: monospace;
 					background: #f3f4f6;
 					padding: 0.25rem 0.5rem;
 					border-radius: 4px;
@@ -384,6 +398,10 @@ html:has(.agent-mode) {
 				list-style: none;
 				padding: 0;
 				margin: 0;
+
+				@container main-content (max-width: 768px) {
+					grid-template-columns: repeat(2, 1fr);
+				}
 
 				& .feature-bullet {
 					display: none;
@@ -767,7 +785,7 @@ html:has(.agent-mode) {
 @media (max-width: 767px) {
 	.agent-mode {
 		& .agent-mode-container {
-			padding: 0.75rem;
+			padding: 0.75rem 2rem;
 		}
 
 		& .property-title {
