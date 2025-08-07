@@ -30,9 +30,6 @@ class Loader {
 
 		// Register shortcodes.
 		$this->register_shortcodes();
-
-		// Register blocks.
-		$this->register_blocks();
 	}
 
 	/**
@@ -49,13 +46,5 @@ class Loader {
 	private function register_shortcodes() {
 		$agent_view_link_button = new Shortcodes\AgentViewLinkButton();
 		$agent_view_link_button->register();
-	}
-
-	/**
-	 * Register all blocks.
-	 */
-	private function register_blocks() {
-		$agent_copy_button_block = new Blocks\AgentCopyButton();
-		$agent_copy_button_block->register();
 	}
 }

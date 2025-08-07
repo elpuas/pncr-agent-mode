@@ -1,7 +1,7 @@
 {
   "task": "Enqueue agent-copy-btn.js globally for Agent Mode",
   "description": "Ensure that the agent copy button script is enqueued on all property single pages regardless of block usage. The script is already working, it just needs to be properly enqueued via wp_enqueue_scripts.",
-  "script_path": "assets/js/agent-copy-btn.js",
+  "script_path": "Assets/js/agent-copy-btn.js",
   "enqueue_logic": {
     "hook": "wp_enqueue_scripts",
     "function_name": "pbcr_enqueue_agent_copy_script",

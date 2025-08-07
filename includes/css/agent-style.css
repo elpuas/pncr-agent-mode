@@ -223,7 +223,7 @@ html:has(.agent-mode) {
 						display: block;
 
 						&.feature-icon-bed::before {
-							background: url("../assets/rooms.svg") no-repeat
+							background: url("../Assets/rooms.svg") no-repeat
 								center center;
 							background-size: contain;
 							content: "";
@@ -233,7 +233,7 @@ html:has(.agent-mode) {
 						}
 
 						&.feature-icon-bath::before {
-							background: url("../assets/bathrooms.svg") no-repeat
+							background: url("../Assets/bathrooms.svg") no-repeat
 								center center;
 							background-size: contain;
 							content: "";
@@ -243,7 +243,7 @@ html:has(.agent-mode) {
 						}
 
 						&.feature-icon-garage::before {
-							background: url("../assets/garage.svg") no-repeat
+							background: url("../Assets/garage.svg") no-repeat
 								center center;
 							background-size: contain;
 							content: "";
@@ -253,7 +253,7 @@ html:has(.agent-mode) {
 						}
 
 						&.feature-icon-size::before {
-							background: url("../assets/size.svg") no-repeat
+							background: url("../Assets/size.svg") no-repeat
 								center center;
 							background-size: contain;
 							content: "";
@@ -263,7 +263,7 @@ html:has(.agent-mode) {
 						}
 
 						&.feature-icon-land::before {
-							background: url("../assets/land.svg") no-repeat
+							background: url("../Assets/land.svg") no-repeat
 								center center;
 							background-size: contain;
 							content: "";
