@@ -58,9 +58,9 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 <body class="agent-mode">
 	<div class="agent-mode-container">
 		<header class="agent-mode-header">
-			<div>
+			<div class="property-header-info">
 				<?php if (! empty($property_data['breadcrumbs']) && is_array($property_data['breadcrumbs'])) : ?>
-					<p class="status"><?php echo esc_html(implode(' › ', $property_data['breadcrumbs'])); ?></p>
+					<p class="status status-breadcrumbs"><?php echo esc_html(implode(' › ', $property_data['breadcrumbs'])); ?></p>
 				<?php endif; ?>
 				<h1 class="property-title"><?php echo esc_html(get_the_title()); ?></h1>
 			</div>
@@ -281,14 +281,6 @@ $features = \PBCRAgentMode\Helpers\PropertyData::get_formatted_features($propert
 	<!-- Direct Swiper JS inclusion -->
 	<script src="<?php echo PBCR_AGENT_MODE_PLUGIN_URL . 'includes/js/swiper-bundle.min.js'; ?>?v=<?php echo PBCR_AGENT_MODE_VERSION; ?>"></script>
 	<script src="<?php echo PBCR_AGENT_MODE_PLUGIN_URL . 'includes/js/agent-mode.js'; ?>?v=<?php echo PBCR_AGENT_MODE_VERSION; ?>"></script>
-	<script>
-		// (function () {
-		// 	if (location.search.includes('agent_view=1')) {
-		// 		const slug = 'mc-' + Math.random().toString(36).slice(2, 6)
-		// 		history.replaceState({}, '', '/' + slug)
-		// 	}
-		// })()
-	</script>
 </body>
 
 </html>
