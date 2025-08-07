@@ -103,5 +103,32 @@ function pbcr_agent_get_property_data( $property_id = null ) {
 	return [];
 }
 
+/**
+ * Inject Agent Mode Button into property content.
+ *
+ * Automatically appends the [agent_view_link_button] shortcode to the content
+ * of single property pages to provide easy access to the agent mode view.
+ *
+ * @param string $content The post content.
+ * @return string Modified content with agent button appended.
+ */
+function pbcr_inject_agent_button_shortcode( $content ) {
+	// Only inject on single property pages in frontend
+	if ( is_singular( 'property' ) && ! is_admin() && in_the_loop() && is_main_query() ) {
+		// Check if shortcode exists to avoid errors
+		if ( shortcode_exists( 'agent_view_link_button' ) ) {
+			// Avoid duplicate injection if shortcode already exists in content
+			if ( strpos( $content, '[agent_view_link_button]' ) === false ) {
+				$shortcode_html = do_shortcode( '[agent_view_link_button]' );
+				return $content . $shortcode_html;
+			}
+		}
+	}
+	return $content;
+}
+
 // Hook into WordPress init.
 add_action( 'plugins_loaded', 'pbcr_agent_mode_init' );
+
+// Inject agent button into property content.
+add_filter( 'the_content', 'pbcr_inject_agent_button_shortcode' );

@@ -4,73 +4,74 @@
  * Scoped styles for the agent copy link button shortcode.
  */
 
-.agent-mode .agent-copy-btn {
+.agent-copy-btn {
 	/* Base button styling */
 	display: inline-flex;
 	align-items: center;
 	gap: 0.5rem;
-	padding: 0.75rem 1.5rem;
-	font-size: 1rem;
+	padding: 0.5rem 1rem;
+	font-size: 0.75rem;
 	font-weight: 500;
 	line-height: 1.5;
 	text-decoration: none;
-	color: #ffffff;
-	background-color: #3b82f6;
-	border: 2px solid #3b82f6;
-	border-radius: 0.5rem;
+	color: #fff;
+	background-color: #000;
+	border: 2px solid #000;
+	border-radius: 0.25rem;
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
 	user-select: none;
 	font-family: inherit;
+	margin-bottom: 1rem;
 }
 
-.agent-mode .agent-copy-btn:hover {
-	background-color: #2563eb;
-	border-color: #2563eb;
+.agent-copy-btn:hover {
+	background-color: gray;
+	border-color: gray;
 	transform: translateY(-1px);
 	box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-.agent-mode .agent-copy-btn:active {
+.agent-copy-btn:active {
 	transform: translateY(0);
 	box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
 }
 
-.agent-mode .agent-copy-btn:focus {
+.agent-copy-btn:focus {
 	outline: 2px solid #3b82f6;
 	outline-offset: 2px;
 }
 
 /* Success state when copied */
-.agent-mode .agent-copy-btn.copied {
+.agent-copy-btn.copied {
 	background-color: #10b981;
 	border-color: #10b981;
 }
 
-.agent-mode .agent-copy-btn.copied:hover {
+.agent-copy-btn.copied:hover {
 	background-color: #059669;
 	border-color: #059669;
 }
 
 /* Error state if copy fails */
-.agent-mode .agent-copy-btn.error {
+.agent-copy-btn.error {
 	background-color: #ef4444;
 	border-color: #ef4444;
 }
 
-.agent-mode .agent-copy-btn.error:hover {
+.agent-copy-btn.error:hover {
 	background-color: #dc2626;
 	border-color: #dc2626;
 }
 
 /* Disabled state */
-.agent-mode .agent-copy-btn:disabled {
+.agent-copy-btn:disabled {
 	opacity: 0.6;
 	cursor: not-allowed;
 	transform: none;
 }
 
-.agent-mode .agent-copy-btn:disabled:hover {
+.agent-copy-btn:disabled:hover {
 	background-color: #3b82f6;
 	border-color: #3b82f6;
 	transform: none;
@@ -79,7 +80,7 @@
 
 /* Container query responsive adjustments */
 @container (max-width: 600px) {
-	.agent-mode .agent-copy-btn {
+	.agent-copy-btn {
 		padding: 0.625rem 1.25rem;
 		font-size: 0.875rem;
 		width: 100%;
@@ -94,40 +95,3 @@
 	}
 }
 
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-	.agent-mode .agent-copy-btn {
-		transition: none;
-	}
-
-	.agent-mode .agent-copy-btn:hover {
-		transform: none;
-	}
-
-	.agent-mode .agent-copy-btn:active {
-		transform: none;
-	}
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-	.agent-mode .agent-copy-btn {
-		background-color: #1e40af;
-		border-color: #1e40af;
-	}
-
-	.agent-mode .agent-copy-btn:hover {
-		background-color: #1d4ed8;
-		border-color: #1d4ed8;
-	}
-
-	.agent-mode .agent-copy-btn.copied {
-		background-color: #059669;
-		border-color: #059669;
-	}
-
-	.agent-mode .agent-copy-btn.copied:hover {
-		background-color: #047857;
-		border-color: #047857;
-	}
-}
