@@ -1,0 +1,21 @@
+{
+  "task": "Enqueue agent-copy-btn.js globally for Agent Mode",
+  "description": "Ensure that the agent copy button script is enqueued on all property single pages regardless of block usage. The script is already working, it just needs to be properly enqueued via wp_enqueue_scripts.",
+  "script_path": "assets/js/agent-copy-btn.js",
+  "enqueue_logic": {
+    "hook": "wp_enqueue_scripts",
+    "function_name": "pbcr_enqueue_agent_copy_script",
+    "condition": "is_singular('property')",
+    "dependencies": ["wp-i18n"],
+    "in_footer": true,
+    "translation_support": true,
+    "textdomain": "pbcr-agent-mode"
+  },
+  "expected_behavior": [
+    "Script is loaded on all property pages",
+    "Copy button (.agent-copy-btn) works using Clipboard API or fallback",
+    "Button shows feedback (Copied! / Error)",
+    "No errors in browser console"
+  ],
+  "notes": "Do not modify the contents of the script itself. Just enqueue it correctly from the plugin main file or a dedicated enqueue file."
+}

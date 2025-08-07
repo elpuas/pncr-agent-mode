@@ -25,11 +25,22 @@ class Loader {
 	 * Register all loader functionality.
 	 */
 	public function register() {
+		// Register assets.
+		$this->register_assets();
+
 		// Register shortcodes.
 		$this->register_shortcodes();
 
 		// Register blocks.
 		$this->register_blocks();
+	}
+
+	/**
+	 * Register asset management.
+	 */
+	private function register_assets() {
+		$agent_mode_assets = new Assets\AgentModeAssets();
+		$agent_mode_assets->register();
 	}
 
 	/**

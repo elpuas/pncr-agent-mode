@@ -1,0 +1,43 @@
+{
+  "task": "Inject Agent Mode Button via the_content",
+  "description": "Enhance the plugin by injecting the `[agent_view_link_button]` shortcode automatically into the content of property single views using the `the_content` filter. This ensures the agent mode button appears without requiring template modifications.",
+  "requirements": {
+    "target": "Single Property pages only (post type 'property')",
+    "hook": "the_content",
+    "conditions": [
+      "Do not run in admin context (`!is_admin()`)",
+      "Only inject for post type 'property'",
+      "Avoid injecting if button is already present (optional)"
+    ],
+    "injection": "Append the rendered shortcode `[agent_view_link_button]` to the post content"
+  },
+  "implementation_notes": {
+    "shortcode_rendering": "Use `do_shortcode('[agent_view_link_button]')`",
+    "filter_priority": "Default (10), unless conflict is detected",
+    "performance": "Minimal impact since only on single property views",
+    "fallback": "If needed, wrap in function_exists to check if shortcode is registered"
+  },
+  "code": {
+    "function": "pbcr_inject_agent_button_shortcode",
+    "location": "plugin main file or a file loaded on init",
+    "code_snippet": [
+      "function pbcr_inject_agent_button_shortcode( $content ) {",
+      "    if ( is_singular('property') && !is_admin() ) {",
+      "        $shortcode_html = do_shortcode('[agent_view_link_button]');",
+      "        return $content . $shortcode_html;",
+      "    }",
+      "    return $content;",
+      "}",
+      "add_filter('the_content', 'pbcr_inject_agent_button_shortcode');"
+    ]
+  },
+  "test_plan": {
+    "test_cases": [
+      "Visit a single property page and confirm the agent button appears at the end of the content",
+      "Confirm it does not show on blog posts or other post types",
+      "Verify shortcode output renders correctly",
+      "Disable the plugin and confirm button disappears"
+    ]
+  },
+  "output": "Agent mode button automatically appears on all single property pages without modifying templates."
+}

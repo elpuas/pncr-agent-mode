@@ -9,7 +9,7 @@
  * - Copies the Agent Mode URL to clipboard with user feedback
  * - Requires user to be logged in and have appropriate capability
  * - Only works in property post context
- * - Loads JS/CSS assets conditionally when needed
+ * - Assets are loaded globally via AgentModeAssets class
  *
  * Developer Filter:
  * Use 'pbcr_agent_button_capability' filter to modify required capability:
@@ -51,7 +51,6 @@ class AgentViewLinkButton {
 	 */
 	public function register() {
 		add_shortcode( self::SHORTCODE_TAG, [ $this, 'render' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'maybe_enqueue_assets' ] );
 	}
 
 	/**
@@ -126,65 +125,6 @@ class AgentViewLinkButton {
 		$property_url = get_permalink( $property_id );
 		$agent_url    = add_query_arg( 'agent_view', '1', $property_url );
 
-		// Future YOURLS integration placeholder
-		/*
-		if ( function_exists( 'yourls_shorten_url' ) ) {
-			$agent_url = yourls_shorten_url( $agent_url );
-		}
-		*/
-
 		return $agent_url;
-	}
-
-	/**
-	 * Conditionally enqueue assets based on shortcode presence.
-	 */
-	public function maybe_enqueue_assets() {
-		global $post;
-
-		// Only on single property posts
-		if ( ! is_singular( 'property' ) || ! $post ) {
-			return;
-		}
-
-		// Only if shortcode is present in content
-		if ( ! has_shortcode( $post->post_content, self::SHORTCODE_TAG ) ) {
-			return;
-		}
-
-		// Only if user can see the button
-		if ( ! $this->can_render() ) {
-			return;
-		}
-
-		$this->enqueue_assets();
-	}
-
-	/**
-	 * Enqueue the required CSS and JavaScript assets.
-	 */
-	private function enqueue_assets() {
-		$plugin_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
-		$plugin_path = dirname( dirname( __FILE__ ) );
-
-		// Enqueue CSS
-		wp_enqueue_style(
-			'pbcr-agent-copy-btn',
-			$plugin_url . 'includes/css/agent-copy-btn.css',
-			[],
-			filemtime( $plugin_path . '/css/agent-copy-btn.css' )
-		);
-
-		// Enqueue JavaScript with dependencies
-		wp_enqueue_script(
-			'pbcr-agent-copy-btn',
-			$plugin_url . 'includes/js/agent-copy-btn.js',
-			[ 'wp-i18n' ],
-			filemtime( $plugin_path . '/js/agent-copy-btn.js' ),
-			true
-		);
-
-		// Set up translations for JavaScript
-		wp_set_script_translations( 'pbcr-agent-copy-btn', 'pbcr-agent-mode' );
 	}
 }
